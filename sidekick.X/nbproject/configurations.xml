@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="62">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="include" displayName="include" projectFiles="true">
+        <itemPath>../lib/include/pic24_serial.h</itemPath>
+        <itemPath>../lib/include/pic24_ports_fh_config.h</itemPath>
+        <itemPath>../lib/include/pic24_delay.h</itemPath>
+        <itemPath>../lib/include/pic24_dma.h</itemPath>
+        <itemPath>../lib/include/pic24_clockfreq.h</itemPath>
+        <itemPath>../lib/include/pic24_ports_mapping.h</itemPath>
+        <itemPath>../lib/include/pic24_unittest.h</itemPath>
+        <itemPath>../lib/include/pic24_comparator.h</itemPath>
+        <itemPath>../lib/include/pic24_ports_e_config.h</itemPath>
+        <itemPath>../lib/include/pic24_all.h</itemPath>
+        <itemPath>../lib/include/pic24_libconfig.h</itemPath>
+        <itemPath>../lib/include/pic24_flash.h</itemPath>
+        <itemPath>../lib/include/pic24_chip.h</itemPath>
+        <itemPath>../lib/include/pic24_timer.h</itemPath>
+        <itemPath>../lib/include/pic24_util.h</itemPath>
+        <itemPath>../lib/include/pic24_uart.h</itemPath>
+        <itemPath>../lib/include/dataXferImpl.h</itemPath>
+        <itemPath>../lib/include/pic24_ports.h</itemPath>
+        <itemPath>../lib/include/pic24_unions.h</itemPath>
+        <itemPath>../lib/include/pic24_i2c.h</itemPath>
+        <itemPath>../lib/include/pic24_adc.h</itemPath>
+        <itemPath>../lib/include/dataXfer.h</itemPath>
+        <itemPath>../lib/include/pic24_ecan.h</itemPath>
+        <itemPath>../lib/include/pic24_spi.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
+      <itemPath>p33EP128GP502_bootldr.gld</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>../lib/src/pic24_i2c.c</itemPath>
+        <itemPath>../lib/src/pic24_spi.c</itemPath>
+        <itemPath>../lib/src/pic24_stdio_uart.c</itemPath>
+        <itemPath>../lib/src/pic24_util.c</itemPath>
+        <itemPath>../lib/src/dataXfer.c</itemPath>
+        <itemPath>../lib/src/dataXferImpl.c</itemPath>
+        <itemPath>../lib/src/pic24_serial.c</itemPath>
+        <itemPath>../lib/src/pic24_clockfreq.c</itemPath>
+        <itemPath>../lib/src/pic24_timer.c</itemPath>
+        <itemPath>../lib/src/pic24_configbits.c</itemPath>
+        <itemPath>../lib/src/pic24_adc.c</itemPath>
+        <itemPath>../lib/src/pic24_ecan.c</itemPath>
+        <itemPath>../lib/src/pic24_uart.c</itemPath>
+        <itemPath>../lib/src/pic24_flash.c</itemPath>
+      </logicalFolder>
+      <itemPath>main.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../lib/src</Elem>
+    <Elem>../lib/include</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="default" type="2">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>dsPIC33EP128GP502</targetDevice>
+        <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
+        <platformTool>Simulator</platformTool>
+        <languageToolchain>XC16</languageToolchain>
+        <languageToolchainVersion>1.11</languageToolchainVersion>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
+      </makeCustomizationType>
+      <C30>
+        <property key="code-model" value="default"/>
+        <property key="const-model" value="default"/>
+        <property key="data-model" value="default"/>
+        <property key="enable-all-warnings" value="true"/>
+        <property key="enable-ansi-std" value="false"/>
+        <property key="enable-ansi-warnings" value="false"/>
+        <property key="enable-fatal-warnings" value="false"/>
+        <property key="enable-large-arrays" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-procedural-abstraction" value="false"/>
+        <property key="enable-short-double" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="extra-include-directories" value="../lib/include"/>
+        <property key="isolate-each-function" value="false"/>
+        <property key="keep-inline" value="false"/>
+        <property key="oXC16gcc-align-arr" value="false"/>
+        <property key="oXC16gcc-cnsts-mauxflash" value="false"/>
+        <property key="oXC16gcc-data-sects" value="false"/>
+        <property key="oXC16gcc-errata" value=""/>
+        <property key="oXC16gcc-fillupper" value=""/>
+        <property key="oXC16gcc-large-aggregate" value="false"/>
+        <property key="oXC16gcc-mauxflash" value="false"/>
+        <property key="oXC16gcc-mpa-lvl" value=""/>
+        <property key="oXC16gcc-name-text-sec" value=""/>
+        <property key="oXC16gcc-near-chars" value="false"/>
+        <property key="oXC16gcc-no-isr-warn" value="false"/>
+        <property key="oXC16gcc-sfr-warn" value="false"/>
+        <property key="oXC16gcc-smar-io-lvl" value="1"/>
+        <property key="oXC16gcc-smart-io-fmt" value=""/>
+        <property key="optimization-level" value="0"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="scalar-model" value="default"/>
+        <property key="use-cci" value="false"/>
+      </C30>
+      <C30-AS>
+      </C30-AS>
+      <C30-LD>
+      </C30-LD>
+      <C30Global>
+      </C30Global>
+      <Simulator>
+      </Simulator>
+    </conf>
+  </confs>
+</configurationDescriptor>
