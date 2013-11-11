@@ -115,7 +115,7 @@ void configTIlink()
     _CNIE = 1;                       //enable the interrupt
 }
 
-int main(int argc, char** argv) {
+int main() {
     configBasic(HELLO_MSG);
 
     configTIlink();
