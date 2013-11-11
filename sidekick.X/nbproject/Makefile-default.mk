@@ -82,182 +82,182 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o: ../lib/src/pic24_i2c.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_spi.o: ../lib/src/pic24_spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_spi.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_spi.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_spi.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_spi.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o: ../lib/src/pic24_stdio_uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_stdio_uart.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_stdio_uart.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_util.o: ../lib/src/pic24_util.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_util.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_util.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_util.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_util.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_util.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_util.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_util.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_util.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/dataXfer.o: ../lib/src/dataXfer.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/dataXfer.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/dataXfer.c  -o ${OBJECTDIR}/_ext/1516276213/dataXfer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/dataXfer.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/dataXfer.c  -o ${OBJECTDIR}/_ext/1516276213/dataXfer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/dataXfer.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/dataXfer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o: ../lib/src/dataXferImpl.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/dataXferImpl.c  -o ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/dataXferImpl.c  -o ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_serial.o: ../lib/src/pic24_serial.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_serial.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_serial.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_serial.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_serial.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o: ../lib/src/pic24_clockfreq.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_clockfreq.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_clockfreq.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_timer.o: ../lib/src/pic24_timer.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_timer.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_timer.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o: ../lib/src/pic24_configbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_configbits.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_configbits.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_adc.o: ../lib/src/pic24_adc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_adc.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_adc.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o: ../lib/src/pic24_ecan.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_ecan.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_ecan.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_uart.o: ../lib/src/pic24_uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_uart.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_uart.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_flash.o: ../lib/src/pic24_flash.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_flash.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_flash.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_flash.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_flash.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
 	@${RM} ${OBJECTDIR}/main.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -D__DEBUG   -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
 ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o: ../lib/src/pic24_i2c.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_i2c.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_spi.o: ../lib/src/pic24_spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_spi.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_spi.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_spi.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_spi.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o: ../lib/src/pic24_stdio_uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_stdio_uart.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_stdio_uart.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_util.o: ../lib/src/pic24_util.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_util.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_util.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_util.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_util.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_util.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_util.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_util.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_util.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/dataXfer.o: ../lib/src/dataXfer.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/dataXfer.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/dataXfer.c  -o ${OBJECTDIR}/_ext/1516276213/dataXfer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/dataXfer.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/dataXfer.c  -o ${OBJECTDIR}/_ext/1516276213/dataXfer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/dataXfer.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/dataXfer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o: ../lib/src/dataXferImpl.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/dataXferImpl.c  -o ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/dataXferImpl.c  -o ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_serial.o: ../lib/src/pic24_serial.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_serial.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_serial.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_serial.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_serial.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o: ../lib/src/pic24_clockfreq.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_clockfreq.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_clockfreq.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_timer.o: ../lib/src/pic24_timer.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_timer.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_timer.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o: ../lib/src/pic24_configbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_configbits.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_configbits.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_adc.o: ../lib/src/pic24_adc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_adc.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_adc.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o: ../lib/src/pic24_ecan.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_ecan.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_ecan.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_uart.o: ../lib/src/pic24_uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_uart.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_uart.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_uart.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1516276213/pic24_flash.o: ../lib/src/pic24_flash.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
 	@${RM} ${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_flash.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_flash.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../lib/src/pic24_flash.c  -o ${OBJECTDIR}/_ext/1516276213/pic24_flash.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
 	@${RM} ${OBJECTDIR}/main.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -omf=elf -O0 -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
