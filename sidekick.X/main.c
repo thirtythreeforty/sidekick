@@ -25,13 +25,13 @@ void configTIlink()
 {
     // Configure tip
     CONFIG_RB5_AS_DIG_INPUT();
-    ENABLE_RB5_PULLUP();
+    DISABLE_RB5_PULLUP();
     ENABLE_RB5_OPENDRAIN();
     ENABLE_RB5_CN_INTERRUPT();
 
     // Configure ring
     CONFIG_RB6_AS_DIG_INPUT();
-    ENABLE_RB6_PULLUP();
+    DISABLE_RB6_PULLUP();
     ENABLE_RB6_OPENDRAIN();
     ENABLE_RB6_CN_INTERRUPT();
 
