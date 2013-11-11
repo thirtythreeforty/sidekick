@@ -31,7 +31,7 @@ TIfifo_tag TIfifo;
 void TIfifo_addBit(unsigned char newbit)
 {
     // No overflow detection is performed!
-    TIfifo.shiftbyte = (TIfifo.shiftbyte << 1) | newbit;
+    TIfifo.shiftbyte = (TIfifo.shiftbyte >> 1) | (newbit << 7);
     if((TIfifo.bits += 1) == 8) {
         *TIfifo.back = TIfifo.shiftbyte;
         if(++TIfifo.back == TIfifo.data + sizeof(TIfifo.data))
@@ -104,6 +104,11 @@ void configTIlink()
     TIPLATCH = 1;
     RINGLATCH = 1;
 
+    // Initialize FIFO
+    TIfifo.front = TIfifo.back = &TIfifo.data;
+    TIfifo.bits = 0;
+
+    // Configure interrupt
     _CNIF = 0;                       //clear interrupt flag
     _CNIP = 1;                       //choose a priority
     _CNIE = 1;                       //enable the interrupt
