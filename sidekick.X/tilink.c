@@ -26,13 +26,7 @@ typedef enum {
 #define CONFIG_RING_AS_OUTPUT() CONFIG_RB6_AS_DIG_OUTPUT()
 #define CONFIG_RING_AS_INPUT()  CONFIG_RB6_AS_DIG_INPUT()
 
-struct {
-    unsigned char *front;
-    unsigned char *back;
-    unsigned char data[256];
-    unsigned char bits;
-    unsigned char shiftbyte;
-} TIfifo;
+TIfifo_tag TIfifo;
 
 void TIfifo_addBit(unsigned char newbit)
 {

@@ -10,6 +10,8 @@
 
 #include "tilink.h"
 
+extern TIfifo_tag TIfifo;
+
 int main() {
     configBasic(HELLO_MSG);
 
