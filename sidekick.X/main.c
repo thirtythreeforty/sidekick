@@ -78,7 +78,15 @@ void _ISRFAST _CNInterrupt(void) {
         CONFIG_TIP_AS_INPUT();
     }
     else {
+        // No clue what happened.
         putchar('X');
+        CONFIG_RING_AS_OUTPUT();
+        CONFIG_TIP_AS_OUTPUT();
+        // Signal an error
+        RINGLATCH = 0;
+        TIPLATCH = 0;
+        DELAY_US(500);
+
         asm("RESET");
     };
 
@@ -88,16 +96,19 @@ void _ISRFAST _CNInterrupt(void) {
 void configTIlink()
 {
     // Configure tip
-    CONFIG_RB5_AS_DIG_INPUT();
+    CONFIG_TIP_AS_INPUT();
     DISABLE_RB5_PULLUP();
     ENABLE_RB5_OPENDRAIN();
     ENABLE_RB5_CN_INTERRUPT();
 
     // Configure ring
-    CONFIG_RB6_AS_DIG_INPUT();
+    CONFIG_RING_AS_INPUT();
     DISABLE_RB6_PULLUP();
     ENABLE_RB6_OPENDRAIN();
     ENABLE_RB6_CN_INTERRUPT();
+
+    TIPLATCH = 1;
+    RINGLATCH = 1;
 
     _CNIF = 0;                       //clear interrupt flag
     _CNIP = 1;                       //choose a priority
