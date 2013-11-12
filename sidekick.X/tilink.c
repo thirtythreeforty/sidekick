@@ -42,6 +42,16 @@ void TIfifo_addBit(unsigned char newbit)
     }
 }
 
+unsigned char TIfifo_getByte(void) {
+    unsigned char byte;
+    while(TIfifo.front == TIfifo.back)
+        ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
+    byte = *TIfifo.front++;
+    if(TIfifo.front == TIfifo.data + sizeof(TIfifo.data))
+        TIfifo.front = &(TIfifo.data[0]);
+    return byte;
+}
+
 void _ISRFAST _CNInterrupt(void) {
     static pin state = floating;
 
