@@ -58,8 +58,6 @@ unsigned char TIfifo_getBit(void)
             TIfifo.front = 0;
         TIfifo.bits = 8;
     }
-    if(TIfifo.front == TIfifo.back && TIfifo.bits == 0)
-        _CNIE = 0;
     b = TIfifo.shiftbyte & 1;
     TIfifo.shiftbyte >>= 1;
     return b;
@@ -81,7 +79,10 @@ void TIfifo_addByte(unsigned char byte) {
     TIfifo.data[TIfifo.back] = byte;
     if(++TIfifo.back == sizeof(TIfifo.data))
         TIfifo.back = 0;
-    _CNIE = 1;
+    if(!_CNIE) {
+        _CNIE = 1;
+        _CNIF = 1;
+    }
 }
 
 void setTIlinkMode(TIlinkMode mode)
@@ -108,17 +109,24 @@ void setTIlinkMode(TIlinkMode mode)
 void _ISRFAST _CNInterrupt(void) {
     switch(TIfifo.mode) {
     case send:
-        if(TIfifo.state == floating && RINGPIN == 1 && TIPPIN == 1) {
-            // Send next bit
-            if(TIfifo_getBit()) {
-                CONFIG_RING_AS_OUTPUT();
-                RINGLATCH = 0;
-                TIfifo.state = ring;
-            }
+        if(TIfifo.state == floating) {
+            if(TIfifo.front == TIfifo.back && TIfifo.bits == 0)
+                // Received our ACK but out of bits to send.
+                _CNIE = 0;
             else {
-                CONFIG_TIP_AS_OUTPUT();
-                TIPLATCH = 0;
-                TIfifo.state = tip;
+                if(RINGPIN != 1 || TIPPIN != 1)
+                    error_and_reset();
+                // Send next bit
+                if(TIfifo_getBit()) {
+                    CONFIG_RING_AS_OUTPUT();
+                    RINGLATCH = 0;
+                    TIfifo.state = ring;
+                }
+                else {
+                    CONFIG_TIP_AS_OUTPUT();
+                    TIPLATCH = 0;
+                    TIfifo.state = tip;
+                }
             }
         }
         else if(TIfifo.state == tip && RINGPIN == 0) {
