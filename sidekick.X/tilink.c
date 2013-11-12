@@ -87,33 +87,63 @@ void setTIlinkMode(TIlinkMode mode)
 
 void _ISRFAST _CNInterrupt(void) {
     static pin state = floating;
-
-    if(TIPPIN == 0 && state == floating) {
-        CONFIG_RING_AS_OUTPUT();
-        RINGLATCH = 0;
-        state = tip;
-        TIfifo_addBit(0);
+    switch(TIfifo.mode) {
+    case send:
+        if(state == floating && RINGPIN == 1 && TIPPIN == 1) {
+            // Send next bit
+            if(TIfifo_getBit()) {
+                CONFIG_RING_AS_OUTPUT();
+                RINGLATCH = 0;
+                state = ring;
+            }
+            else {
+                CONFIG_TIP_AS_OUTPUT();
+                TIPLATCH = 0;
+                state = tip;
+            }
+        }
+        else if(state == tip && RINGPIN == 0) {
+            TIPLATCH = 1;
+            CONFIG_TIP_AS_INPUT();
+            state = floating;
+        }
+        else if(state == ring && TIPPIN == 0) {
+            RINGLATCH = 1;
+            CONFIG_RING_AS_INPUT();
+            state = floating;
+        }
+        else
+            // No clue what happened, let's signal an error and get out of here.
+            error_and_reset();
+        break;
+    case receive:
+        if(TIPPIN == 0 && state == floating) {
+            CONFIG_RING_AS_OUTPUT();
+            RINGLATCH = 0;
+            state = tip;
+            TIfifo_addBit(0);
+        }
+        else if(RINGPIN == 0 && state == floating) {
+            CONFIG_TIP_AS_OUTPUT();
+            TIPLATCH = 0;
+            state = ring;
+            TIfifo_addBit(1);
+        }
+        else if(state == tip && TIPPIN) {
+            state = floating;
+            RINGLATCH = 1;
+            CONFIG_RING_AS_INPUT();
+        }
+        else if(state == ring && RINGPIN) {
+            state = floating;
+            TIPLATCH = 1;
+            CONFIG_TIP_AS_INPUT();
+        }
+        else
+            // No clue what happened, let's signal an error and get out of here.
+            error_and_reset();
+        break;
     }
-    else if(RINGPIN == 0 && state == floating) {
-        CONFIG_TIP_AS_OUTPUT();
-        TIPLATCH = 0;
-        state = ring;
-        TIfifo_addBit(1);
-    }
-    else if(state == tip && TIPPIN) {
-        state = floating;
-        RINGLATCH = 1;
-        CONFIG_RING_AS_INPUT();
-    }
-    else if(state == ring && RINGPIN) {
-        state = floating;
-        TIPLATCH = 1;
-        CONFIG_TIP_AS_INPUT();
-    }
-    else {
-        // No clue what happened, let's signal an error and get out of here.
-        error_and_reset();
-    };
 
     _CNIF = 0;
 }
