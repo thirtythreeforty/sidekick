@@ -21,10 +21,10 @@ typedef struct {
 } TIfifo_tag;
 
 void configTIlink();
+void error_and_reset();
 
 #ifdef	__cplusplus
 }
 #endif
 
 #endif	/* TILINK_H */
-

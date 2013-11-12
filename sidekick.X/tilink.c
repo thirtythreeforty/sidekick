@@ -68,15 +68,8 @@ void _ISRFAST _CNInterrupt(void) {
         CONFIG_TIP_AS_INPUT();
     }
     else {
-        // No clue what happened.
-        CONFIG_RING_AS_OUTPUT();
-        CONFIG_TIP_AS_OUTPUT();
-        // Signal an error
-        RINGLATCH = 0;
-        TIPLATCH = 0;
-        DELAY_US(600);
-
-        asm("RESET");
+        // No clue what happened, let's signal an error and get out of here.
+        error_and_reset();
     };
 
     _CNIF = 0;
@@ -107,4 +100,16 @@ void configTIlink()
     _CNIF = 0;                       //clear interrupt flag
     _CNIP = 1;                       //choose a priority
     _CNIE = 1;                       //enable the interrupt
+}
+
+void error_and_reset()
+{
+    CONFIG_RING_AS_OUTPUT();
+    CONFIG_TIP_AS_OUTPUT();
+    // Signal an error
+    RINGLATCH = 0;
+    TIPLATCH = 0;
+    DELAY_US(600);
+
+    asm("RESET");
 }
