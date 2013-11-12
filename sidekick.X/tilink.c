@@ -28,7 +28,7 @@ typedef enum {
 #define CONFIG_RING_AS_INPUT()  CONFIG_RB6_AS_DIG_INPUT()
 #define ENABLE_RING_INTERRUPT() ENABLE_RB6_CN_INTERRUPT()
 
-TIfifo_tag TIfifo;
+volatile TIfifo_tag TIfifo;
 
 void TIfifo_addBit(unsigned char newbit)
 {
