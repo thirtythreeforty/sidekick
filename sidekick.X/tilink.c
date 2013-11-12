@@ -15,6 +15,16 @@ typedef enum {
     tip
 } pin;
 
+volatile struct {
+    unsigned char data[0x100];
+    unsigned int front;
+    unsigned int back;
+    unsigned char bits;
+    unsigned char shiftbyte;
+    TIlinkMode mode;
+    pin state;
+} TIfifo = {.front = 0, .back = 0, .bits = 0, .mode = receive, .state = floating};
+
 #define TIPPIN _RB5
 #define TIPLATCH _LATB5
 #define CONFIG_TIP_AS_OUTPUT() CONFIG_RB5_AS_DIG_OUTPUT()
@@ -26,8 +36,6 @@ typedef enum {
 #define CONFIG_RING_AS_OUTPUT() CONFIG_RB6_AS_DIG_OUTPUT()
 #define CONFIG_RING_AS_INPUT()  CONFIG_RB6_AS_DIG_INPUT()
 #define ENABLE_RING_INTERRUPT() ENABLE_RB6_CN_INTERRUPT()
-
-volatile TIfifo_tag TIfifo = {.front = 0, .back = 0, .bits = 0, .mode = receive};
 
 void TIfifo_addBit(unsigned char newbit)
 {
@@ -81,6 +89,7 @@ void setTIlinkMode(TIlinkMode mode)
     TIfifo.mode = mode;
     TIfifo.front = TIfifo.back = 0;
     TIfifo.bits = 0;
+    TIfifo.state = floating;
 
     TIPLATCH = 1;
     RINGLATCH = 1;
@@ -92,56 +101,55 @@ void setTIlinkMode(TIlinkMode mode)
 }
 
 void _ISRFAST _CNInterrupt(void) {
-    static pin state = floating;
     switch(TIfifo.mode) {
     case send:
-        if(state == floating && RINGPIN == 1 && TIPPIN == 1) {
+        if(TIfifo.state == floating && RINGPIN == 1 && TIPPIN == 1) {
             // Send next bit
             if(TIfifo_getBit()) {
                 CONFIG_RING_AS_OUTPUT();
                 RINGLATCH = 0;
-                state = ring;
+                TIfifo.state = ring;
             }
             else {
                 CONFIG_TIP_AS_OUTPUT();
                 TIPLATCH = 0;
-                state = tip;
+                TIfifo.state = tip;
             }
         }
-        else if(state == tip && RINGPIN == 0) {
+        else if(TIfifo.state == tip && RINGPIN == 0) {
             TIPLATCH = 1;
             CONFIG_TIP_AS_INPUT();
-            state = floating;
+            TIfifo.state = floating;
         }
-        else if(state == ring && TIPPIN == 0) {
+        else if(TIfifo.state == ring && TIPPIN == 0) {
             RINGLATCH = 1;
             CONFIG_RING_AS_INPUT();
-            state = floating;
+            TIfifo.state = floating;
         }
         else
             // No clue what happened, let's signal an error and get out of here.
             error_and_reset();
         break;
     case receive:
-        if(TIPPIN == 0 && state == floating) {
+        if(TIPPIN == 0 && TIfifo.state == floating) {
             CONFIG_RING_AS_OUTPUT();
             RINGLATCH = 0;
-            state = tip;
+            TIfifo.state = tip;
             TIfifo_addBit(0);
         }
-        else if(RINGPIN == 0 && state == floating) {
+        else if(RINGPIN == 0 && TIfifo.state == floating) {
             CONFIG_TIP_AS_OUTPUT();
             TIPLATCH = 0;
-            state = ring;
+            TIfifo.state = ring;
             TIfifo_addBit(1);
         }
-        else if(state == tip && TIPPIN) {
-            state = floating;
+        else if(TIfifo.state == tip && TIPPIN) {
+            TIfifo.state = floating;
             RINGLATCH = 1;
             CONFIG_RING_AS_INPUT();
         }
-        else if(state == ring && RINGPIN) {
-            state = floating;
+        else if(TIfifo.state == ring && RINGPIN) {
+            TIfifo.state = floating;
             TIPLATCH = 1;
             CONFIG_TIP_AS_INPUT();
         }
