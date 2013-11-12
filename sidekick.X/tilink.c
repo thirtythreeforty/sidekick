@@ -32,12 +32,14 @@ TIfifo_tag TIfifo;
 
 void TIfifo_addBit(unsigned char newbit)
 {
-    // No overflow detection is performed!
     TIfifo.shiftbyte = (TIfifo.shiftbyte >> 1) | (newbit << 7);
     if((TIfifo.bits += 1) == 8) {
-        *TIfifo.back = TIfifo.shiftbyte;
-        if(++TIfifo.back == TIfifo.data + sizeof(TIfifo.data))
+        *TIfifo.back++ = TIfifo.shiftbyte;
+        if(TIfifo.back == TIfifo.data + sizeof(TIfifo.data)) {
             TIfifo.back = &(TIfifo.data[0]);
+            if(TIfifo.back == TIfifo.front) // Detect overflow
+                error_and_reset();
+        }
         TIfifo.bits = 0;
     }
 }
