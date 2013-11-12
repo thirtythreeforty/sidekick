@@ -22,6 +22,8 @@ typedef struct {
 
 void configTIlink();
 void error_and_reset();
+
+void TIfifo_addByte(unsigned char);
 unsigned char TIfifo_getByte();
 
 #ifdef	__cplusplus

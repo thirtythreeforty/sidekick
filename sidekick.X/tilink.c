@@ -41,6 +41,20 @@ void TIfifo_addBit(unsigned char newbit)
         TIfifo.bits = 0;
     }
 }
+unsigned char TIfifo_getBit(void)
+{
+    unsigned char b;
+    if(TIfifo.bits-- == 0) {
+        if(++TIfifo.front == sizeof(TIfifo.data))
+            TIfifo.front = 0;
+        TIfifo.bits = 8;
+    }
+    if(TIfifo.front == TIfifo.back)
+        error_and_reset();
+    b = TIfifo.shiftbyte & 1;
+    TIfifo.shiftbyte >>= 1;
+    return b;
+}
 
 unsigned char TIfifo_getByte(void) {
     unsigned char byte;
@@ -50,6 +64,13 @@ unsigned char TIfifo_getByte(void) {
     if(TIfifo.front == sizeof(TIfifo.data))
         TIfifo.front = 0;
     return byte;
+}
+void TIfifo_addByte(unsigned char byte) {
+    while(TIfifo.front == (TIfifo.back + 1) % (sizeof(TIfifo.data) - 1))
+        ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
+    TIfifo.data[TIfifo.back] = byte;
+    if(++TIfifo.back == sizeof(TIfifo.data))
+        TIfifo.back = 0;
 }
 
 void _ISRFAST _CNInterrupt(void) {
