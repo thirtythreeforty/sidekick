@@ -37,7 +37,7 @@ void TIfifo_addBit(unsigned char newbit)
     if((TIfifo.bits += 1) == 8) {
         *TIfifo.back = TIfifo.shiftbyte;
         if(++TIfifo.back == TIfifo.data + sizeof(TIfifo.data))
-            TIfifo.back = &TIfifo.data;
+            TIfifo.back = &(TIfifo.data[0]);
         TIfifo.bits = 0;
     }
 }
@@ -100,7 +100,7 @@ void configTIlink()
     RINGLATCH = 1;
 
     // Initialize FIFO
-    TIfifo.front = TIfifo.back = &TIfifo.data;
+    TIfifo.front = TIfifo.back = &(TIfifo.data[0]);
     TIfifo.bits = 0;
 
     // Configure interrupt
