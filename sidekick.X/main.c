@@ -8,6 +8,7 @@
 #include "pic24_all.h"
 
 #include "tilink.h"
+#include "tipacket.h"
 
 int main() {
     configBasic(HELLO_MSG);

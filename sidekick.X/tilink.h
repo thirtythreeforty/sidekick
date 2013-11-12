@@ -12,16 +12,16 @@
 extern "C" {
 #endif
 
-typedef struct {
-    unsigned char *front;
-    unsigned char *back;
-    unsigned char data[256];
-    unsigned char bits;
-    unsigned char shiftbyte;
-} TIfifo_tag;
+typedef enum {
+    receive,
+    send
+} TIlinkMode;
 
 void configTIlink();
 void error_and_reset();
+void setTIlinkMode(TIlinkMode);
+
+void TIfifo_addByte(unsigned char);
 unsigned char TIfifo_getByte();
 
 #ifdef	__cplusplus

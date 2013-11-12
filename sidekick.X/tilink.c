@@ -15,6 +15,16 @@ typedef enum {
     tip
 } pin;
 
+volatile struct {
+    unsigned char data[0x100];
+    unsigned int front;
+    unsigned int back;
+    unsigned char bits;
+    unsigned char shiftbyte;
+    TIlinkMode mode;
+    pin state;
+} TIfifo = {.front = 0, .back = 0, .bits = 0, .mode = receive, .state = floating};
+
 #define TIPPIN _RB5
 #define TIPLATCH _LATB5
 #define CONFIG_TIP_AS_OUTPUT() CONFIG_RB5_AS_DIG_OUTPUT()
@@ -27,59 +37,127 @@ typedef enum {
 #define CONFIG_RING_AS_INPUT()  CONFIG_RB6_AS_DIG_INPUT()
 #define ENABLE_RING_INTERRUPT() ENABLE_RB6_CN_INTERRUPT()
 
-TIfifo_tag TIfifo;
-
 void TIfifo_addBit(unsigned char newbit)
 {
-    // No overflow detection is performed!
     TIfifo.shiftbyte = (TIfifo.shiftbyte >> 1) | (newbit << 7);
     if((TIfifo.bits += 1) == 8) {
-        *TIfifo.back = TIfifo.shiftbyte;
-        if(++TIfifo.back == TIfifo.data + sizeof(TIfifo.data))
-            TIfifo.back = &(TIfifo.data[0]);
+        TIfifo.data[TIfifo.back++] = TIfifo.shiftbyte;
+        if(TIfifo.back == sizeof(TIfifo.data))
+            TIfifo.back = 0;
+        if(TIfifo.back == TIfifo.front) // Detect overflow
+            error_and_reset();
         TIfifo.bits = 0;
     }
+}
+unsigned char TIfifo_getBit(void)
+{
+    unsigned char b;
+    if(TIfifo.bits-- == 0) {
+        if(++TIfifo.front == sizeof(TIfifo.data))
+            TIfifo.front = 0;
+        TIfifo.bits = 8;
+    }
+    if(TIfifo.front == TIfifo.back && TIfifo.bits == 0)
+        _CNIE = 0;
+    b = TIfifo.shiftbyte & 1;
+    TIfifo.shiftbyte >>= 1;
+    return b;
 }
 
 unsigned char TIfifo_getByte(void) {
     unsigned char byte;
     while(TIfifo.front == TIfifo.back)
         ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
-    byte = *TIfifo.front++;
-    if(TIfifo.front == TIfifo.data + sizeof(TIfifo.data))
-        TIfifo.front = &(TIfifo.data[0]);
+    byte = TIfifo.data[TIfifo.front++];
+    if(TIfifo.front == sizeof(TIfifo.data))
+        TIfifo.front = 0;
     return byte;
+}
+void TIfifo_addByte(unsigned char byte) {
+    // TIlink must be in send mode or this function will not behave!
+    while(TIfifo.front == (TIfifo.back + 1) % (sizeof(TIfifo.data) - 1))
+        ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
+    TIfifo.data[TIfifo.back] = byte;
+    if(++TIfifo.back == sizeof(TIfifo.data))
+        TIfifo.back = 0;
+    _CNIE = 1;
+}
+
+void setTIlinkMode(TIlinkMode mode)
+{
+    _CNIE = 0;
+    TIfifo.mode = mode;
+    TIfifo.front = TIfifo.back = 0;
+    TIfifo.bits = 0;
+    TIfifo.state = floating;
+
+    TIPLATCH = 1;
+    RINGLATCH = 1;
+    CONFIG_TIP_AS_INPUT();
+    CONFIG_RING_AS_INPUT();
+
+    if(mode == receive)
+        _CNIE = 1;
 }
 
 void _ISRFAST _CNInterrupt(void) {
-    static pin state = floating;
-
-    if(TIPPIN == 0 && state == floating) {
-        CONFIG_RING_AS_OUTPUT();
-        RINGLATCH = 0;
-        state = tip;
-        TIfifo_addBit(0);
+    switch(TIfifo.mode) {
+    case send:
+        if(TIfifo.state == floating && RINGPIN == 1 && TIPPIN == 1) {
+            // Send next bit
+            if(TIfifo_getBit()) {
+                CONFIG_RING_AS_OUTPUT();
+                RINGLATCH = 0;
+                TIfifo.state = ring;
+            }
+            else {
+                CONFIG_TIP_AS_OUTPUT();
+                TIPLATCH = 0;
+                TIfifo.state = tip;
+            }
+        }
+        else if(TIfifo.state == tip && RINGPIN == 0) {
+            TIPLATCH = 1;
+            CONFIG_TIP_AS_INPUT();
+            TIfifo.state = floating;
+        }
+        else if(TIfifo.state == ring && TIPPIN == 0) {
+            RINGLATCH = 1;
+            CONFIG_RING_AS_INPUT();
+            TIfifo.state = floating;
+        }
+        else
+            // No clue what happened, let's signal an error and get out of here.
+            error_and_reset();
+        break;
+    case receive:
+        if(TIPPIN == 0 && TIfifo.state == floating) {
+            CONFIG_RING_AS_OUTPUT();
+            RINGLATCH = 0;
+            TIfifo.state = tip;
+            TIfifo_addBit(0);
+        }
+        else if(RINGPIN == 0 && TIfifo.state == floating) {
+            CONFIG_TIP_AS_OUTPUT();
+            TIPLATCH = 0;
+            TIfifo.state = ring;
+            TIfifo_addBit(1);
+        }
+        else if(TIfifo.state == tip && TIPPIN) {
+            TIfifo.state = floating;
+            RINGLATCH = 1;
+            CONFIG_RING_AS_INPUT();
+        }
+        else if(TIfifo.state == ring && RINGPIN) {
+            TIfifo.state = floating;
+            TIPLATCH = 1;
+            CONFIG_TIP_AS_INPUT();
+        }
+        else
+            // No clue what happened, let's signal an error and get out of here.
+            error_and_reset();
+        break;
     }
-    else if(RINGPIN == 0 && state == floating) {
-        CONFIG_TIP_AS_OUTPUT();
-        TIPLATCH = 0;
-        state = ring;
-        TIfifo_addBit(1);
-    }
-    else if(state == tip && TIPPIN) {
-        state = floating;
-        RINGLATCH = 1;
-        CONFIG_RING_AS_INPUT();
-    }
-    else if(state == ring && RINGPIN) {
-        state = floating;
-        TIPLATCH = 1;
-        CONFIG_TIP_AS_INPUT();
-    }
-    else {
-        // No clue what happened, let's signal an error and get out of here.
-        error_and_reset();
-    };
 
     _CNIF = 0;
 }
@@ -87,28 +165,19 @@ void _ISRFAST _CNInterrupt(void) {
 void configTIlink()
 {
     // Configure tip
-    CONFIG_TIP_AS_INPUT();
     ENABLE_RB5_PULLUP();
     ENABLE_RB5_OPENDRAIN();
     ENABLE_TIP_INTERRUPT();
 
     // Configure ring
-    CONFIG_RING_AS_INPUT();
     ENABLE_RB6_PULLUP();
     ENABLE_RB6_OPENDRAIN();
     ENABLE_RING_INTERRUPT();
 
-    TIPLATCH = 1;
-    RINGLATCH = 1;
-
-    // Initialize FIFO
-    TIfifo.front = TIfifo.back = &(TIfifo.data[0]);
-    TIfifo.bits = 0;
-
     // Configure interrupt
     _CNIF = 0;                       //clear interrupt flag
     _CNIP = 1;                       //choose a priority
-    _CNIE = 1;                       //enable the interrupt
+    setTIlinkMode(receive);
 }
 
 void error_and_reset()

@@ -6,8 +6,6 @@
  */
 
 #include "tilink.h"
-volatile extern TIfifo_tag TIfifo;
-
 
 enum {
     idle = 0,
