@@ -41,8 +41,8 @@ void TIfifo_addBit(unsigned char newbit)
 {
     TIfifo.shiftbyte = (TIfifo.shiftbyte >> 1) | (newbit << 7);
     if((TIfifo.bits += 1) == 8) {
-        TIfifo.data[TIfifo.back++] = TIfifo.shiftbyte;
-        if(TIfifo.back == sizeof(TIfifo.data))
+        TIfifo.data[TIfifo.back] = TIfifo.shiftbyte;
+        if(++TIfifo.back == sizeof(TIfifo.data))
             TIfifo.back = 0;
         if(TIfifo.back == TIfifo.front) // Detect overflow
             error_and_reset();
@@ -68,8 +68,8 @@ unsigned char TIfifo_getByte(void) {
     unsigned char byte;
     while(TIfifo.front == TIfifo.back)
         ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
-    byte = TIfifo.data[TIfifo.front++];
-    if(TIfifo.front == sizeof(TIfifo.data))
+    byte = TIfifo.data[TIfifo.front];
+    if(++TIfifo.front == sizeof(TIfifo.data))
         TIfifo.front = 0;
     return byte;
 }
