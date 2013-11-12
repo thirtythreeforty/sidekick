@@ -12,6 +12,11 @@ enum {
     needAck
 } state;
 
+typedef enum {
+    ACK = 0x56,
+    ERR = 0x5A
+} PacketType;
+
 volatile struct {
     unsigned char data[0x3500];
     unsigned int front;
@@ -57,26 +62,27 @@ unsigned char getTIPacket()
         dataChecksum |= TIfifo_getByte() << 8;  // Checksum, high byte
 
         // Send reply
-        setTIlinkMode(send);
-        TIfifo_addByte(0x98); // Always act as TI-89 for now
         if(dataChecksum == computedChecksum) {
-            // Send ACK
-            TIfifo_addByte(0x56);
-            // Mark received data as OK to write to EEPROM
             packetfifo_MarkGood();
+            sendTIAck(ACK);
         }
         else {
-            // Send ERR
-            TIfifo_addByte(0x5A);
-            // Discard data
             packetfifo_MarkBad();
+            sendTIAck(ERR);
         }
-        TIfifo_addByte(0x00);
-        TIfifo_addByte(0x00);
-        setTIlinkMode(receive);
 
         return 1; // CONT packets not implemented yet
     }
+}
+
+void sendTIAck(PacketType ack)
+{
+    setTIlinkMode(send);
+    TIfifo_addByte(0x98); // Always act as TI-89 for now
+    TIfifo_addByte(ack);
+    TIfifo_addByte(0x00);
+    TIfifo_addByte(0x00);
+    setTIlinkMode(receive);
 }
 
 void sendTIPacketReply()
