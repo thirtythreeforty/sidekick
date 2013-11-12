@@ -27,7 +27,7 @@ typedef enum {
 #define CONFIG_RING_AS_INPUT()  CONFIG_RB6_AS_DIG_INPUT()
 #define ENABLE_RING_INTERRUPT() ENABLE_RB6_CN_INTERRUPT()
 
-volatile TIfifo_tag TIfifo = {.front = 0, .back = 0, .bits = 0};
+volatile TIfifo_tag TIfifo = {.front = 0, .back = 0, .bits = 0, .mode = receive};
 
 void TIfifo_addBit(unsigned char newbit)
 {
@@ -49,8 +49,8 @@ unsigned char TIfifo_getBit(void)
             TIfifo.front = 0;
         TIfifo.bits = 8;
     }
-    if(TIfifo.front == TIfifo.back)
-        error_and_reset();
+    if(TIfifo.front == TIfifo.back && TIfifo.bits == 0)
+        _CNIE = 0;
     b = TIfifo.shiftbyte & 1;
     TIfifo.shiftbyte >>= 1;
     return b;
@@ -66,11 +66,23 @@ unsigned char TIfifo_getByte(void) {
     return byte;
 }
 void TIfifo_addByte(unsigned char byte) {
+    // TIlink must be in send mode or this function will not behave!
     while(TIfifo.front == (TIfifo.back + 1) % (sizeof(TIfifo.data) - 1))
         ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
     TIfifo.data[TIfifo.back] = byte;
     if(++TIfifo.back == sizeof(TIfifo.data))
         TIfifo.back = 0;
+    _CNIE = 1;
+}
+
+void setTIlinkMode(TIlinkMode mode)
+{
+    _CNIE = 0;
+    TIfifo.mode = mode;
+    TIfifo.front = TIfifo.back = 0;
+    TIfifo.bits = 0;
+    if(mode == receive)
+        _CNIE = 1;
 }
 
 void _ISRFAST _CNInterrupt(void) {

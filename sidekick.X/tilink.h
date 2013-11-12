@@ -12,16 +12,23 @@
 extern "C" {
 #endif
 
+typedef enum {
+    receive,
+    send
+} TIlinkMode;
+
 typedef struct {
     unsigned char data[0x100];
     unsigned int front;
     unsigned int back;
     unsigned char bits;
     unsigned char shiftbyte;
+    TIlinkMode mode;
 } TIfifo_tag;
 
 void configTIlink();
 void error_and_reset();
+void setTIlinkMode(TIlinkMode);
 
 void TIfifo_addByte(unsigned char);
 unsigned char TIfifo_getByte();
