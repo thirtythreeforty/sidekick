@@ -53,6 +53,7 @@ unsigned char TIfifo_getBit(void)
 {
     unsigned char b;
     if(TIfifo.bits-- == 0) {
+        TIfifo.shiftbyte = TIfifo.data[TIfifo.front];
         if(++TIfifo.front == sizeof(TIfifo.data))
             TIfifo.front = 0;
         TIfifo.bits = 8;
