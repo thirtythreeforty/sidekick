@@ -13,9 +13,9 @@ extern "C" {
 #endif
 
 typedef struct {
-    unsigned char *front;
-    unsigned char *back;
-    unsigned char data[256];
+    unsigned char data[0x100];
+    unsigned int front;
+    unsigned int back;
     unsigned char bits;
     unsigned char shiftbyte;
 } TIfifo_tag;

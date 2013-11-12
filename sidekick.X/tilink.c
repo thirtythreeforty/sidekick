@@ -27,18 +27,17 @@ typedef enum {
 #define CONFIG_RING_AS_INPUT()  CONFIG_RB6_AS_DIG_INPUT()
 #define ENABLE_RING_INTERRUPT() ENABLE_RB6_CN_INTERRUPT()
 
-volatile TIfifo_tag TIfifo;
+volatile TIfifo_tag TIfifo = {.front = 0, .back = 0, .bits = 0};
 
 void TIfifo_addBit(unsigned char newbit)
 {
     TIfifo.shiftbyte = (TIfifo.shiftbyte >> 1) | (newbit << 7);
     if((TIfifo.bits += 1) == 8) {
-        *TIfifo.back++ = TIfifo.shiftbyte;
-        if(TIfifo.back == TIfifo.data + sizeof(TIfifo.data)) {
-            TIfifo.back = &(TIfifo.data[0]);
-            if(TIfifo.back == TIfifo.front) // Detect overflow
-                error_and_reset();
-        }
+        TIfifo.data[TIfifo.back++] = TIfifo.shiftbyte;
+        if(TIfifo.back == sizeof(TIfifo.data))
+            TIfifo.back = 0;
+        if(TIfifo.back == TIfifo.front) // Detect overflow
+            error_and_reset();
         TIfifo.bits = 0;
     }
 }
@@ -47,9 +46,9 @@ unsigned char TIfifo_getByte(void) {
     unsigned char byte;
     while(TIfifo.front == TIfifo.back)
         ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
-    byte = *TIfifo.front++;
-    if(TIfifo.front == TIfifo.data + sizeof(TIfifo.data))
-        TIfifo.front = &(TIfifo.data[0]);
+    byte = TIfifo.data[TIfifo.front++];
+    if(TIfifo.front == sizeof(TIfifo.data))
+        TIfifo.front = 0;
     return byte;
 }
 
@@ -102,10 +101,6 @@ void configTIlink()
 
     TIPLATCH = 1;
     RINGLATCH = 1;
-
-    // Initialize FIFO
-    TIfifo.front = TIfifo.back = &(TIfifo.data[0]);
-    TIfifo.bits = 0;
 
     // Configure interrupt
     _CNIF = 0;                       //clear interrupt flag
