@@ -20,11 +20,15 @@ typedef enum {
 #define TIPLATCH _LATB5
 #define CONFIG_TIP_AS_OUTPUT() CONFIG_RB5_AS_DIG_OUTPUT()
 #define CONFIG_TIP_AS_INPUT()  CONFIG_RB5_AS_DIG_INPUT()
+#define ENABLE_TIP_INTERRUPT() ENABLE_RB5_CN_INTERRUPT()
+#define DISABLE_TIP_INTERRUPT() DISABLE_RB5_CN_INTERRUPT()
 
 #define RINGPIN _RB6
 #define RINGLATCH _LATB6
 #define CONFIG_RING_AS_OUTPUT() CONFIG_RB6_AS_DIG_OUTPUT()
 #define CONFIG_RING_AS_INPUT()  CONFIG_RB6_AS_DIG_INPUT()
+#define ENABLE_RING_INTERRUPT() ENABLE_RB6_CN_INTERRUPT()
+#define DISABLE_RING_INTERRUPT() DISABLE_RB6_CN_INTERRUPT()
 
 TIfifo_tag TIfifo;
 
@@ -44,42 +48,39 @@ void _ISRFAST _CNInterrupt(void) {
     static pin state = floating;
 
     if(TIPPIN == 0 && state == floating) {
+        DISABLE_RING_INTERRUPT();
         CONFIG_RING_AS_OUTPUT();
         RINGLATCH = 0;
         state = tip;
         TIfifo_addBit(0);
-#ifndef NDEBUG
-        putchar('0');
-#endif
     }
     else if(RINGPIN == 0 && state == floating) {
+        DISABLE_TIP_INTERRUPT();
         CONFIG_TIP_AS_OUTPUT();
         TIPLATCH = 0;
         state = ring;
         TIfifo_addBit(1);
-#ifndef NDEBUG
-        putchar('1');
-#endif
     }
     else if(state == tip && TIPPIN) {
         state = floating;
         RINGLATCH = 1;
         CONFIG_RING_AS_INPUT();
+        ENABLE_RING_INTERRUPT();
     }
     else if(state == ring && RINGPIN) {
         state = floating;
-        TIPPIN = 1;
+        TIPLATCH = 1;
         CONFIG_TIP_AS_INPUT();
+        ENABLE_TIP_INTERRUPT();
     }
     else {
         // No clue what happened.
-        putchar('X');
         CONFIG_RING_AS_OUTPUT();
         CONFIG_TIP_AS_OUTPUT();
         // Signal an error
         RINGLATCH = 0;
         TIPLATCH = 0;
-        DELAY_US(500);
+        DELAY_US(600);
 
         asm("RESET");
     };
@@ -91,15 +92,15 @@ void configTIlink()
 {
     // Configure tip
     CONFIG_TIP_AS_INPUT();
-    DISABLE_RB5_PULLUP();
+    ENABLE_RB5_PULLUP();
     ENABLE_RB5_OPENDRAIN();
-    ENABLE_RB5_CN_INTERRUPT();
+    ENABLE_TIP_INTERRUPT();
 
     // Configure ring
     CONFIG_RING_AS_INPUT();
-    DISABLE_RB6_PULLUP();
+    ENABLE_RB6_PULLUP();
     ENABLE_RB6_OPENDRAIN();
-    ENABLE_RB6_CN_INTERRUPT();
+    ENABLE_RING_INTERRUPT();
 
     TIPLATCH = 1;
     RINGLATCH = 1;
