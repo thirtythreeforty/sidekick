@@ -31,6 +31,7 @@
         <itemPath>../lib/include/pic24_spi.h</itemPath>
       </logicalFolder>
       <itemPath>tilink.h</itemPath>
+      <itemPath>tipacket.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -58,6 +59,7 @@
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>tilink.c</itemPath>
+      <itemPath>tipacket.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

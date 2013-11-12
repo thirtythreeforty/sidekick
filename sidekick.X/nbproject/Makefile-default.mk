@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../lib/src/pic24_i2c.c ../lib/src/pic24_spi.c ../lib/src/pic24_stdio_uart.c ../lib/src/pic24_util.c ../lib/src/dataXfer.c ../lib/src/dataXferImpl.c ../lib/src/pic24_serial.c ../lib/src/pic24_clockfreq.c ../lib/src/pic24_timer.c ../lib/src/pic24_configbits.c ../lib/src/pic24_adc.c ../lib/src/pic24_ecan.c ../lib/src/pic24_uart.c ../lib/src/pic24_flash.c main.c tilink.c
+SOURCEFILES_QUOTED_IF_SPACED=../lib/src/pic24_i2c.c ../lib/src/pic24_spi.c ../lib/src/pic24_stdio_uart.c ../lib/src/pic24_util.c ../lib/src/dataXfer.c ../lib/src/dataXferImpl.c ../lib/src/pic24_serial.c ../lib/src/pic24_clockfreq.c ../lib/src/pic24_timer.c ../lib/src/pic24_configbits.c ../lib/src/pic24_adc.c ../lib/src/pic24_ecan.c ../lib/src/pic24_uart.c ../lib/src/pic24_flash.c main.c tilink.c tipacket.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1516276213/pic24_i2c.o ${OBJECTDIR}/_ext/1516276213/pic24_spi.o ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o ${OBJECTDIR}/_ext/1516276213/pic24_util.o ${OBJECTDIR}/_ext/1516276213/dataXfer.o ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o ${OBJECTDIR}/_ext/1516276213/pic24_serial.o ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o ${OBJECTDIR}/_ext/1516276213/pic24_timer.o ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o ${OBJECTDIR}/_ext/1516276213/pic24_adc.o ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o ${OBJECTDIR}/_ext/1516276213/pic24_uart.o ${OBJECTDIR}/_ext/1516276213/pic24_flash.o ${OBJECTDIR}/main.o ${OBJECTDIR}/tilink.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d ${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d ${OBJECTDIR}/_ext/1516276213/pic24_util.o.d ${OBJECTDIR}/_ext/1516276213/dataXfer.o.d ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d ${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d ${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d ${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d ${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d ${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/tilink.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1516276213/pic24_i2c.o ${OBJECTDIR}/_ext/1516276213/pic24_spi.o ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o ${OBJECTDIR}/_ext/1516276213/pic24_util.o ${OBJECTDIR}/_ext/1516276213/dataXfer.o ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o ${OBJECTDIR}/_ext/1516276213/pic24_serial.o ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o ${OBJECTDIR}/_ext/1516276213/pic24_timer.o ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o ${OBJECTDIR}/_ext/1516276213/pic24_adc.o ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o ${OBJECTDIR}/_ext/1516276213/pic24_uart.o ${OBJECTDIR}/_ext/1516276213/pic24_flash.o ${OBJECTDIR}/main.o ${OBJECTDIR}/tilink.o ${OBJECTDIR}/tipacket.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1516276213/pic24_i2c.o.d ${OBJECTDIR}/_ext/1516276213/pic24_spi.o.d ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o.d ${OBJECTDIR}/_ext/1516276213/pic24_util.o.d ${OBJECTDIR}/_ext/1516276213/dataXfer.o.d ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o.d ${OBJECTDIR}/_ext/1516276213/pic24_serial.o.d ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o.d ${OBJECTDIR}/_ext/1516276213/pic24_timer.o.d ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o.d ${OBJECTDIR}/_ext/1516276213/pic24_adc.o.d ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o.d ${OBJECTDIR}/_ext/1516276213/pic24_uart.o.d ${OBJECTDIR}/_ext/1516276213/pic24_flash.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/tilink.o.d ${OBJECTDIR}/tipacket.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1516276213/pic24_i2c.o ${OBJECTDIR}/_ext/1516276213/pic24_spi.o ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o ${OBJECTDIR}/_ext/1516276213/pic24_util.o ${OBJECTDIR}/_ext/1516276213/dataXfer.o ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o ${OBJECTDIR}/_ext/1516276213/pic24_serial.o ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o ${OBJECTDIR}/_ext/1516276213/pic24_timer.o ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o ${OBJECTDIR}/_ext/1516276213/pic24_adc.o ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o ${OBJECTDIR}/_ext/1516276213/pic24_uart.o ${OBJECTDIR}/_ext/1516276213/pic24_flash.o ${OBJECTDIR}/main.o ${OBJECTDIR}/tilink.o
+OBJECTFILES=${OBJECTDIR}/_ext/1516276213/pic24_i2c.o ${OBJECTDIR}/_ext/1516276213/pic24_spi.o ${OBJECTDIR}/_ext/1516276213/pic24_stdio_uart.o ${OBJECTDIR}/_ext/1516276213/pic24_util.o ${OBJECTDIR}/_ext/1516276213/dataXfer.o ${OBJECTDIR}/_ext/1516276213/dataXferImpl.o ${OBJECTDIR}/_ext/1516276213/pic24_serial.o ${OBJECTDIR}/_ext/1516276213/pic24_clockfreq.o ${OBJECTDIR}/_ext/1516276213/pic24_timer.o ${OBJECTDIR}/_ext/1516276213/pic24_configbits.o ${OBJECTDIR}/_ext/1516276213/pic24_adc.o ${OBJECTDIR}/_ext/1516276213/pic24_ecan.o ${OBJECTDIR}/_ext/1516276213/pic24_uart.o ${OBJECTDIR}/_ext/1516276213/pic24_flash.o ${OBJECTDIR}/main.o ${OBJECTDIR}/tilink.o ${OBJECTDIR}/tipacket.o
 
 # Source Files
-SOURCEFILES=../lib/src/pic24_i2c.c ../lib/src/pic24_spi.c ../lib/src/pic24_stdio_uart.c ../lib/src/pic24_util.c ../lib/src/dataXfer.c ../lib/src/dataXferImpl.c ../lib/src/pic24_serial.c ../lib/src/pic24_clockfreq.c ../lib/src/pic24_timer.c ../lib/src/pic24_configbits.c ../lib/src/pic24_adc.c ../lib/src/pic24_ecan.c ../lib/src/pic24_uart.c ../lib/src/pic24_flash.c main.c tilink.c
+SOURCEFILES=../lib/src/pic24_i2c.c ../lib/src/pic24_spi.c ../lib/src/pic24_stdio_uart.c ../lib/src/pic24_util.c ../lib/src/dataXfer.c ../lib/src/dataXferImpl.c ../lib/src/pic24_serial.c ../lib/src/pic24_clockfreq.c ../lib/src/pic24_timer.c ../lib/src/pic24_configbits.c ../lib/src/pic24_adc.c ../lib/src/pic24_ecan.c ../lib/src/pic24_uart.c ../lib/src/pic24_flash.c main.c tilink.c tipacket.c
 
 
 CFLAGS=
@@ -175,6 +175,12 @@ ${OBJECTDIR}/tilink.o: tilink.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  tilink.c  -o ${OBJECTDIR}/tilink.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/tilink.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/tilink.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/tipacket.o: tipacket.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/tipacket.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  tipacket.c  -o ${OBJECTDIR}/tipacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/tipacket.o.d"      -g -D__DEBUG   -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/tipacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/_ext/1516276213/pic24_i2c.o: ../lib/src/pic24_i2c.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1516276213 
@@ -271,6 +277,12 @@ ${OBJECTDIR}/tilink.o: tilink.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/tilink.o.d 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  tilink.c  -o ${OBJECTDIR}/tilink.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/tilink.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/tilink.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/tipacket.o: tipacket.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/tipacket.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  tipacket.c  -o ${OBJECTDIR}/tipacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/tipacket.o.d"      -g -omf=elf -O1 -fomit-frame-pointer -I"../lib/include" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/tipacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
