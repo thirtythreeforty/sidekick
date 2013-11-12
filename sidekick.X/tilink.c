@@ -85,6 +85,10 @@ void TIfifo_addByte(unsigned char byte) {
 
 void setTIlinkMode(TIlinkMode mode)
 {
+    if(TIfifo.mode == send)
+        while(_CNIE)
+            // Wait for all bytes to be sent
+            ;//asm("pwrsav #1");
     _CNIE = 0;
     TIfifo.mode = mode;
     TIfifo.front = TIfifo.back = 0;

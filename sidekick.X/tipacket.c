@@ -15,8 +15,9 @@ enum {
 volatile struct {
     unsigned char data[0x3500];
     unsigned int front;
+    unsigned int goodFront;
     unsigned int back;
-} datafifo __attribute__((far)) = {.front = 0, .back = 0};
+} datafifo __attribute__((far)) = {.front = 0, .back = 0, .goodFront = 0};
 
 void packetfifo_PushByte(unsigned char byte)
 {
@@ -25,6 +26,14 @@ void packetfifo_PushByte(unsigned char byte)
     datafifo.data[datafifo.back] = byte;
     if(++datafifo.back == sizeof(datafifo.data))
         datafifo.back = 0;
+}
+inline void packetfifo_MarkGood(void)
+{
+    datafifo.goodFront = datafifo.front;
+}
+inline void packetfifo_MarkBad(void)
+{
+    datafifo.front = datafifo.goodFront;
 }
 
 unsigned char getTIPacket()
@@ -46,10 +55,26 @@ unsigned char getTIPacket()
         }
         dataChecksum = TIfifo_getByte();        // Checksum, low byte
         dataChecksum |= TIfifo_getByte() << 8;  // Checksum, high byte
-        if(dataChecksum == computedChecksum)
-            ;
-        else
-            ;
+
+        // Send reply
+        setTIlinkMode(send);
+        TIfifo_addByte(0x98); // Always act as TI-89 for now
+        if(dataChecksum == computedChecksum) {
+            // Send ACK
+            TIfifo_addByte(0x56);
+            // Mark received data as OK to write to EEPROM
+            packetfifo_MarkGood();
+        }
+        else {
+            // Send ERR
+            TIfifo_addByte(0x5A);
+            // Discard data
+            packetfifo_MarkBad();
+        }
+        TIfifo_addByte(0x00);
+        TIfifo_addByte(0x00);
+        setTIlinkMode(receive);
+
         return 1; // CONT packets not implemented yet
     }
 }
