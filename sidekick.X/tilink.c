@@ -5,7 +5,6 @@
  * Created on November 11, 2013, 3:27 PM
  */
 
-#include <stdio.h>
 #include "pic24_all.h"
 
 #include "tilink.h"
