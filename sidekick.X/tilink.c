@@ -81,6 +81,12 @@ void setTIlinkMode(TIlinkMode mode)
     TIfifo.mode = mode;
     TIfifo.front = TIfifo.back = 0;
     TIfifo.bits = 0;
+
+    TIPLATCH = 1;
+    RINGLATCH = 1;
+    CONFIG_TIP_AS_INPUT();
+    CONFIG_RING_AS_INPUT();
+
     if(mode == receive)
         _CNIE = 1;
 }
@@ -151,24 +157,19 @@ void _ISRFAST _CNInterrupt(void) {
 void configTIlink()
 {
     // Configure tip
-    CONFIG_TIP_AS_INPUT();
     ENABLE_RB5_PULLUP();
     ENABLE_RB5_OPENDRAIN();
     ENABLE_TIP_INTERRUPT();
 
     // Configure ring
-    CONFIG_RING_AS_INPUT();
     ENABLE_RB6_PULLUP();
     ENABLE_RB6_OPENDRAIN();
     ENABLE_RING_INTERRUPT();
 
-    TIPLATCH = 1;
-    RINGLATCH = 1;
-
     // Configure interrupt
     _CNIF = 0;                       //clear interrupt flag
     _CNIP = 1;                       //choose a priority
-    _CNIE = 1;                       //enable the interrupt
+    setTIlinkMode(receive);
 }
 
 void error_and_reset()
