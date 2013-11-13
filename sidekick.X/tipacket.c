@@ -6,25 +6,42 @@
  */
 
 #include "tilink.h"
+#include "tipacket.h"
+
+#include "pic24_all.h"
 
 enum {
     idle = 0,
     needAck
 } state;
 
+typedef enum {
+    ACK = 0x56,
+    ERR = 0x5A
+} PacketType;
+
 volatile struct {
     unsigned char data[0x3500];
     unsigned int front;
+    unsigned int goodFront;
     unsigned int back;
-} datafifo __attribute__((far)) = {.front = 0, .back = 0};
+} datafifo __attribute__((far)) = {.front = 0, .back = 0, .goodFront = 0};
 
 void packetfifo_PushByte(unsigned char byte)
 {
     while(datafifo.front == (datafifo.back + 1) % (sizeof(datafifo.data) - 1))
         ;//asm("pwrsav #1");
-    datafifo.data[datafifo.back++] = byte;
-    if(datafifo.back == sizeof(datafifo.data))
+    datafifo.data[datafifo.back] = byte;
+    if(++datafifo.back == sizeof(datafifo.data))
         datafifo.back = 0;
+}
+inline void packetfifo_MarkGood(void)
+{
+    datafifo.goodFront = datafifo.front;
+}
+inline void packetfifo_MarkBad(void)
+{
+    datafifo.front = datafifo.goodFront;
 }
 
 unsigned char getTIPacket()
@@ -46,12 +63,29 @@ unsigned char getTIPacket()
         }
         dataChecksum = TIfifo_getByte();        // Checksum, low byte
         dataChecksum |= TIfifo_getByte() << 8;  // Checksum, high byte
-        if(dataChecksum == computedChecksum)
-            ;
-        else
-            ;
+
+        // Send reply
+        if(dataChecksum == computedChecksum) {
+            packetfifo_MarkGood();
+            sendTIAck(ACK);
+        }
+        else {
+            packetfifo_MarkBad();
+            sendTIAck(ERR);
+        }
+
         return 1; // CONT packets not implemented yet
     }
+}
+
+void sendTIAck(PacketType ack)
+{
+    setTIlinkMode(send);
+    TIfifo_addByte(0x98); // Always act as TI-89 for now
+    TIfifo_addByte(ack);
+    TIfifo_addByte(0x00);
+    TIfifo_addByte(0x00);
+    setTIlinkMode(receive);
 }
 
 void sendTIPacketReply()

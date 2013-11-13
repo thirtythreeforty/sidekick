@@ -15,10 +15,7 @@ int main() {
 
     configTIlink();
 
-    while(1) {
-        // Main loop
-        while(getTIPacket())
-            ; // Do nothing
-        sendTIPacketReply();
-    }
+    while(1)
+        if(!getTIPacket())
+            sendTIPacketReply();
 }

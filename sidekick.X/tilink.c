@@ -41,8 +41,8 @@ void TIfifo_addBit(unsigned char newbit)
 {
     TIfifo.shiftbyte = (TIfifo.shiftbyte >> 1) | (newbit << 7);
     if((TIfifo.bits += 1) == 8) {
-        TIfifo.data[TIfifo.back++] = TIfifo.shiftbyte;
-        if(TIfifo.back == sizeof(TIfifo.data))
+        TIfifo.data[TIfifo.back] = TIfifo.shiftbyte;
+        if(++TIfifo.back == sizeof(TIfifo.data))
             TIfifo.back = 0;
         if(TIfifo.back == TIfifo.front) // Detect overflow
             error_and_reset();
@@ -52,13 +52,13 @@ void TIfifo_addBit(unsigned char newbit)
 unsigned char TIfifo_getBit(void)
 {
     unsigned char b;
-    if(TIfifo.bits-- == 0) {
+    if(TIfifo.bits == 0) {
+        TIfifo.shiftbyte = TIfifo.data[TIfifo.front];
         if(++TIfifo.front == sizeof(TIfifo.data))
             TIfifo.front = 0;
         TIfifo.bits = 8;
     }
-    if(TIfifo.front == TIfifo.back && TIfifo.bits == 0)
-        _CNIE = 0;
+    --TIfifo.bits;
     b = TIfifo.shiftbyte & 1;
     TIfifo.shiftbyte >>= 1;
     return b;
@@ -68,8 +68,8 @@ unsigned char TIfifo_getByte(void) {
     unsigned char byte;
     while(TIfifo.front == TIfifo.back)
         ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
-    byte = TIfifo.data[TIfifo.front++];
-    if(TIfifo.front == sizeof(TIfifo.data))
+    byte = TIfifo.data[TIfifo.front];
+    if(++TIfifo.front == sizeof(TIfifo.data))
         TIfifo.front = 0;
     return byte;
 }
@@ -80,11 +80,18 @@ void TIfifo_addByte(unsigned char byte) {
     TIfifo.data[TIfifo.back] = byte;
     if(++TIfifo.back == sizeof(TIfifo.data))
         TIfifo.back = 0;
-    _CNIE = 1;
+    if(!_CNIE) {
+        _CNIE = 1;
+        _CNIF = 1;
+    }
 }
 
 void setTIlinkMode(TIlinkMode mode)
 {
+    if(TIfifo.mode == send)
+        while(_CNIE)
+            // Wait for all bytes to be sent
+            ;//asm("pwrsav #1");
     _CNIE = 0;
     TIfifo.mode = mode;
     TIfifo.front = TIfifo.back = 0;
@@ -103,17 +110,24 @@ void setTIlinkMode(TIlinkMode mode)
 void _ISRFAST _CNInterrupt(void) {
     switch(TIfifo.mode) {
     case send:
-        if(TIfifo.state == floating && RINGPIN == 1 && TIPPIN == 1) {
-            // Send next bit
-            if(TIfifo_getBit()) {
-                CONFIG_RING_AS_OUTPUT();
-                RINGLATCH = 0;
-                TIfifo.state = ring;
-            }
+        if(TIfifo.state == floating) {
+            if(TIfifo.front == TIfifo.back && TIfifo.bits == 0)
+                // Received our ACK but out of bits to send.
+                _CNIE = 0;
             else {
-                CONFIG_TIP_AS_OUTPUT();
-                TIPLATCH = 0;
-                TIfifo.state = tip;
+                if(RINGPIN != 1 || TIPPIN != 1)
+                    error_and_reset();
+                // Send next bit
+                if(TIfifo_getBit()) {
+                    CONFIG_RING_AS_OUTPUT();
+                    RINGLATCH = 0;
+                    TIfifo.state = ring;
+                }
+                else {
+                    CONFIG_TIP_AS_OUTPUT();
+                    TIPLATCH = 0;
+                    TIfifo.state = tip;
+                }
             }
         }
         else if(TIfifo.state == tip && RINGPIN == 0) {
