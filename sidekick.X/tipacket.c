@@ -6,6 +6,9 @@
  */
 
 #include "tilink.h"
+#include "tipacket.h"
+
+#include "pic24_all.h"
 
 enum {
     idle = 0,

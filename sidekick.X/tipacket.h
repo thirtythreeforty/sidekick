@@ -16,6 +16,7 @@ unsigned char getTIPacket();
 void sendTIPacketReply();
 void packetfifo_PushByte(unsigned char byte);
 void packetfifo_PopByte(unsigned char byte);
+void sendTIAck(PacketType);
 
 #ifdef	__cplusplus
 }

@@ -52,12 +52,13 @@ void TIfifo_addBit(unsigned char newbit)
 unsigned char TIfifo_getBit(void)
 {
     unsigned char b;
-    if(TIfifo.bits-- == 0) {
+    if(TIfifo.bits == 0) {
         TIfifo.shiftbyte = TIfifo.data[TIfifo.front];
         if(++TIfifo.front == sizeof(TIfifo.data))
             TIfifo.front = 0;
         TIfifo.bits = 8;
     }
+    --TIfifo.bits;
     b = TIfifo.shiftbyte & 1;
     TIfifo.shiftbyte >>= 1;
     return b;
