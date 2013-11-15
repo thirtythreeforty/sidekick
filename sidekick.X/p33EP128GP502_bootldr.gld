@@ -241,7 +241,7 @@ SECTIONS
   */
 .j_ivt __JIVT_BASE :
  {
- SHORT(0x02);  /* timeout value */
+ SHORT(0x01);  /* timeout value */
  SHORT(0x00);
     SHORT(DEFINED(__OscillatorFail) ? ABSOLUTE(__OscillatorFail) :
      ABSOLUTE(__DefaultInterrupt));
