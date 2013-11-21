@@ -34,7 +34,7 @@ typedef enum {
 } eepromOpType;
 
 void eepromReset(void);
-unsigned char eepromStart(eepromOpType op);
+unsigned char eepromStart(eepromOpType op, unsigned long int desiredAddress);
 void eepromStop(void);
 // These write commands may not cross page boundaries!
 void eepromWriteArray(void* src, unsigned char size);

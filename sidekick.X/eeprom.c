@@ -16,9 +16,10 @@ typedef struct {
     unsigned char addresslow;
 } eepromPhyAddr;
 
-unsigned char eepromStart(eepromOpType op)
+unsigned char eepromStart(eepromOpType op, unsigned long int desiredAddress)
 {
     if(eepromState.state == erIdle) {
+        eepromState.currentAddress = desiredAddress;
         startI2C1();
         unsigned char ctrlbyte = 0b10100000 | ((eepromState.currentAddress & 0x10000) >> 13) | (eepromState.currentAddress >> 17);
         if(putNoAckCheckI2C1(ctrlbyte)) {

@@ -36,8 +36,7 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
     puts("VerifyAndInit called.\n");
 
     // Read the variable header, make sure it matches what is already stored
-    eepromState.currentAddress = 0;
-    while(eepromStart(read))
+    while(eepromStart(read, 0x000000))
         ;//asm(" pwrsav #1");
     eepromReadArray(&erHeader, sizeof(erHeader));
     eepromStop();
@@ -55,10 +54,8 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
         // In the second case, that's actually true.
         return 1;
 
-    // Good, now set up the EEPROM write process.  We know it's ok to move the
-    // currentAddress because the eeprom is definitely idle after the read above.
-    eepromState.currentAddress = erHeader.offsetToFree;
-    while(eepromStart(write))
+    // Good, now set up the EEPROM write process.
+    while(eepromStart(write, erHeader.offsetToFree))
         ;//asm("pwrsav #1");
     eepromWriteArray(&varHeader, sizeof(varHeader));
     // Don't stop because we don't have a whole page.
@@ -117,24 +114,28 @@ void variableCommit(void)
     eepromHeader header;
     variableFlush();
     // Commit the transaction to the first page
-    eepromState.currentAddress = 0;
-    while(eepromStart(read))
+    while(eepromStart(read, 0x000000))
         ;//asm("pwrsav #1");
     eepromReadArray(&header, sizeof(header));
     eepromStop();
+
     ++header.numVariables;
     header.empty = 0;
-    // TODO fix .offsetToFree!
+    unsigned char remainder = header.offsetToFree % EEPROM_PAGE_SIZE;
+    if (remainder != 0)
+        header.offsetToFree += EEPROM_PAGE_SIZE - remainder;
+
+    while(eepromStart(write, 0x000000))
+        ;//asm("pwrsav #1");
     eepromWriteArray(&header, sizeof(header));
+    eepromStop();
 }
 void variableClear(void)
 {
     // Delete all data; just erase the header!
     eepromHeader header = {.empty = 1, .calcType = 0x98,
                            .numVariables = 0, .offsetToFree = EEPROM_PAGE_SIZE};
-    // TODO this could conflict with an ongoing write operation
-    eepromState.currentAddress = 0;
-    while(eepromStart(write))
+    while(eepromStart(write, 0x000000))
         ;//asm("pwrsav #1");
     eepromWriteArray(&header, sizeof(header));
     eepromStop();
