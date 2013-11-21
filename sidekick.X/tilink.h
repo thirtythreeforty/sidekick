@@ -18,7 +18,7 @@ typedef enum {
 } TIlinkMode;
 
 void configTIlink();
-void error_and_reset();
+void error_and_reset() __attribute__((noreturn));
 void setTIlinkMode(TIlinkMode);
 
 void TIfifo_addByte(unsigned char);

@@ -202,6 +202,7 @@ void error_and_reset()
     RINGLATCH = 0;
     TIPLATCH = 0;
     DELAY_US(600);
+    WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
 
     asm("RESET");
 }
