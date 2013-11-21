@@ -40,7 +40,7 @@ unsigned char eepromStart(eepromOpType op, unsigned long int desiredAddress)
     }
     else
         // We're busy.
-        return 1;
+        return 2;
 }
 
 void eepromStop(void)

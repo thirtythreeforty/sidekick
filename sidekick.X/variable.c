@@ -83,7 +83,7 @@ void  _ISRFAST _T2Interrupt(void)
 {
     // Write if we can fill up a page, or if we've been instructed to write no matter what.
     if(((packetfifo_Size() + eepromState.bytesInPage) >= EEPROM_PAGE_SIZE || variable_writeNow)
-       && !eepromStart(write)) {
+       && (eepromStart(write, eepromState.currentAddress) != 1)) { // Possibly eeprom is already started.
         while(eepromState.bytesInPage < EEPROM_PAGE_SIZE)
             eepromWriteByte(packetfifo_PopByte());
         eepromStop();
