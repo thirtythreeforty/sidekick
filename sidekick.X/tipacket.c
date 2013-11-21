@@ -82,13 +82,13 @@ void getTIPacket(void)
     if(dataChecksum == computedChecksum) {
         puts("Packet good.\n");
         packetfifo_MarkGood();
-        sendTIAck(ACK);
+        sendTIAck(unit, ACK);
         sendTIPacketReply(unit, command); // Hardcoded for now.
     }
     else {
         puts("Packet bad.\n");
         packetfifo_MarkBad();
-        sendTIAck(ERR);
+        sendTIAck(unit, ERR);
     }
 }
 
@@ -122,10 +122,10 @@ void sendTIPacket(unsigned char unit, unsigned char command, const unsigned char
     } while(!ok);
 }
 
-void sendTIAck(PacketType ack)
+void sendTIAck(unsigned char unit, PacketType ack)
 {
     setTIlinkMode(send);
-    TIfifo_addByte(HOSTTYPE);
+    TIfifo_addByte(unit);
     TIfifo_addByte(ack);
     TIfifo_addByte(0x00);
     TIfifo_addByte(0x00);
