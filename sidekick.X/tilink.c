@@ -146,16 +146,16 @@ void _ISRFAST _CNInterrupt(void) {
         break;
     case receive:
         if(TIPPIN == 0 && TIfifo.state == floating) {
+            TIfifo_addBit(0);
             CONFIG_RING_AS_OUTPUT();
             RINGLATCH = 0;
             TIfifo.state = tip;
-            TIfifo_addBit(0);
         }
         else if(RINGPIN == 0 && TIfifo.state == floating) {
+            TIfifo_addBit(1);
             CONFIG_TIP_AS_OUTPUT();
             TIPLATCH = 0;
             TIfifo.state = ring;
-            TIfifo_addBit(1);
         }
         else if(TIfifo.state == tip && TIPPIN) {
             TIfifo.state = floating;
