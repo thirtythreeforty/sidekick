@@ -9,13 +9,14 @@
 
 #include "tilink.h"
 #include "tipacket.h"
+#include "variable.h"
 
 int main() {
     configBasic(HELLO_MSG);
 
     configTIlink();
+    configVariable();
 
     while(1)
-        if(!getTIPacket())
-            sendTIPacketReply();
+        getTIPacket();
 }

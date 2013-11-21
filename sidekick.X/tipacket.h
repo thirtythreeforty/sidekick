@@ -12,11 +12,20 @@
 extern "C" {
 #endif
 
-unsigned char getTIPacket();
-void sendTIPacketReply();
+// 0x08 is PC, 0x98 is TI-89
+#define HOSTTYPE 0x08
+    
+typedef enum {
+    ACK = 0x56,
+    ERR = 0x5A
+} PacketType;
+
+void getTIPacket();
+void sendTIPacketReply(unsigned char unit, unsigned char command);
 void packetfifo_PushByte(unsigned char byte);
-void packetfifo_PopByte(unsigned char byte);
-void sendTIAck(PacketType);
+unsigned char packetfifo_PopByte();
+unsigned int packetfifo_Size(void);
+void sendTIAck(PacketType ack);
 
 #ifdef	__cplusplus
 }
