@@ -47,7 +47,7 @@ unsigned char packetfifo_PopByte(void)
 }
 inline unsigned int packetfifo_Size()
 {
-    return (datafifo.goodFront - datafifo.back) % sizeof(datafifo.data);
+    return (datafifo.back - datafifo.goodFront) % sizeof(datafifo.data);
 }
 inline void packetfifo_MarkGood(void)
 {
