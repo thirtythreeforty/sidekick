@@ -34,7 +34,7 @@ unsigned char eepromStart(eepromOpType op, unsigned long int desiredAddress)
             putI2C1(ctrlbyte | 1);
         }
         else
-            eepromState.bytesInPage = EEPROM_PAGE_SIZE - (eepromState.currentAddress % EEPROM_PAGE_SIZE);
+            eepromState.bytesInPage = eepromState.currentAddress % EEPROM_PAGE_SIZE;
         eepromState.state = (op == write) ? erWrite : erRead;
         return 0;
     }
@@ -50,7 +50,8 @@ void eepromStop(void)
         getI2C1(1);
     stopI2C1();
     eepromState.state = erIdle;
-    if(!(eepromState.bytesInPage == EEPROM_PAGE_SIZE))
+    // The following is required for clients that check if we have free space.
+    if(eepromState.bytesInPage == EEPROM_PAGE_SIZE)
         eepromState.bytesInPage = 0;
 }
 
