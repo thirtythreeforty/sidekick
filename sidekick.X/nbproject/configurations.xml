@@ -85,7 +85,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion></languageToolchainVersion>
+        <languageToolchainVersion>1.20</languageToolchainVersion>
         <platform>2</platform>
       </toolsSet>
       <compileType>

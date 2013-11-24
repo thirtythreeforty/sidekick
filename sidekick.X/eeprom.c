@@ -6,6 +6,7 @@
  */
 
 #include "pic24_all.h"
+#include "common.h"
 #include "eeprom.h"
 
 volatile eepromState_t eepromState;
@@ -33,8 +34,10 @@ unsigned char eepromStart(eepromOpType op, unsigned long int desiredAddress)
             rstartI2C1();
             putI2C1(ctrlbyte | 1);
         }
-        else
+        else {
             eepromState.bytesInPage = eepromState.currentAddress % EEPROM_PAGE_SIZE;
+            debug("Bytes in new page: 0x%02x (@ 0x%04x).\n",eepromState.bytesInPage, (unsigned int)eepromState.currentAddress);
+        }
         eepromState.state = (op == write) ? erWrite : erRead;
         return 0;
     }

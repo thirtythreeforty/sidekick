@@ -6,12 +6,10 @@
  */
 
 #include "pic24_all.h"
-
+#include "common.h"
 #include "tipacket.h"
 #include "eeprom.h"
 #include "variable.h"
-
-#include <stdio.h>
 
 typedef struct {
     unsigned char empty;
@@ -33,14 +31,14 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
     unsigned char i;
     TIvarHeader varHeader;
 
-    puts("VerifyAndInit called.\n");
+    debug("VerifyAndInit called.\n");
 
     // Read the variable header, make sure it matches what is already stored
     while(eepromStart(read, 0x000000))
         ;//asm(" pwrsav #1");
     eepromReadArray(&erHeader, sizeof(erHeader));
     eepromStop();
-    puts("Reading of header complete.\n");
+    debug("Reading of header complete.\n");
     for(i = 0; i < 6; ++i)                      // Read constant-sized part
         ((unsigned char*)(&varHeader))[i] = packetfifo_PopByte();
     for(i = 0; i < varHeader.varNameSize; ++i)  // Read name, ugh
@@ -55,6 +53,7 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
         // In the second case, that's actually true.
         return 1;
 
+    debug("erHeader.offsetToFree is %i.\n", erHeader.offsetToFree);
     // Good, now set up the EEPROM write process.
     while(eepromStart(write, erHeader.offsetToFree))
         ;//asm("pwrsav #1");
@@ -62,7 +61,7 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
     // Don't stop because we don't have a whole page.
     // Start the interrupt!
     _T2IE = 1;
-    puts("Done.\n");
+    debug("Done.\n");
     return 0;
 }
 
@@ -72,14 +71,14 @@ void variableFlush(void)
 {
     // Force the interrupt to write the remaining data in the buffer.
     // Bit of a hack.
-    puts("Flushing variable...");
+    debug("Flushing variable...");
     variable_writeNow = 1;
     while(packetfifo_Size())
         ; //asm("pwrsav #1");
     variable_writeNow = 0;
     // Disable the async-write interrupt.
     _T2IE = 0;
-    puts("Flushed.\n");
+    debug("Flushed.\n");
 }
 
 void  _ISRFAST _T2Interrupt(void)
@@ -116,6 +115,8 @@ void variableCommit(void)
 {
     eepromHeader header;
     variableFlush();
+    debug("Committing variable...\n");
+
     // Commit the transaction to the first page
     
     // Update the offset from the last eeprom address.
@@ -131,23 +132,23 @@ void variableCommit(void)
 
     ++header.numVariables;
     header.empty = 0;
-    unsigned char remainder = header.offsetToFree % EEPROM_PAGE_SIZE;
-    if (remainder != 0)
-        header.offsetToFree += EEPROM_PAGE_SIZE - remainder;
+    header.offsetToFree = newOffset;
 
     while(eepromStart(write, 0x000000))
         ;//asm("pwrsav #1");
     eepromWriteArray(&header, sizeof(header));
     eepromStop();
+    debug("Committed.\n");
 }
 void variableClear(void)
 {
     // Delete all data; just erase the header!
     eepromHeader header = {.empty = 1, .calcType = 0x98,
                            .numVariables = 0, .offsetToFree = EEPROM_PAGE_SIZE};
+    debug("Clearing variables...");
     while(eepromStart(write, 0x000000))
         ;//asm("pwrsav #1");
     eepromWriteArray(&header, sizeof(header));
     eepromStop();
-    puts("Done clearing.\n");
+    debug("Cleared.\n");
 }

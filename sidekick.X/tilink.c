@@ -6,7 +6,7 @@
  */
 
 #include "pic24_all.h"
-
+#include "common.h"
 #include "tilink.h"
 
 typedef enum {
@@ -202,6 +202,7 @@ void error_and_reset()
     RINGLATCH = 0;
     TIPLATCH = 0;
     DELAY_US(600);
+    debug("Error!");
     WAIT_UNTIL_TRANSMIT_COMPLETE_UART1();
 
     asm("RESET");

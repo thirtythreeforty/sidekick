@@ -5,15 +5,11 @@
  * Created on November 11, 2013, 7:38 PM
  */
 
+#include "pic24_all.h"
+#include "common.h"
 #include "variable.h"
-
-
 #include "tilink.h"
 #include "tipacket.h"
-
-#include "pic24_all.h"
-
-#include <stdio.h>
 
 enum {
     idle = 0,
@@ -62,14 +58,17 @@ void getTIPacket(void)
 {
     unsigned int i, packetSize, dataChecksum, computedChecksum = 0;
     unsigned char unit, command;
+    debug("packetfifo size is %i\n", packetfifo_Size());
     // Packet header
     unit = TIfifo_getByte();
     if(unit != 0x98)                        // Sending unit (0x98 : TI-89)
         // Paranoia, only accept TI-89 packets for now
         error_and_reset();
     command = TIfifo_getByte();
+    debug("command = 0x%02x; ", command);
     packetSize = TIfifo_getByte();          // Data size, low byte
     packetSize |= TIfifo_getByte() << 8;    // Data size, high byte
+    debug("packet size = 0x%04x; ", packetSize);
     for(i = 0; i < packetSize; ++i) {       // Data
         unsigned char in = TIfifo_getByte();
         packetfifo_PushByte(in);
@@ -82,13 +81,16 @@ void getTIPacket(void)
 
     // Send ack
     if(dataChecksum == computedChecksum || !packetSize) {
-        puts("Packet good.\n");
+        debug("Packet good.\n");
         packetfifo_MarkGood();
+
+        debug("packetfifo size is %i\n", packetfifo_Size());
+
         sendTIAck(unit, ACK);
-        sendTIPacketReply(unit, command); // Hardcoded for now.
+        sendTIPacketReply(unit, command);
     }
     else {
-        puts("Packet bad.\n");
+        debug("Packet bad.\n");
         packetfifo_MarkBad();
         sendTIAck(unit, ERR);
     }
@@ -98,6 +100,7 @@ void sendTIPacket(unsigned char unit, unsigned char command, const unsigned char
 {
     unsigned char ok = 0;
     do {
+        debug("Sending TI packet");
         unsigned int i, checksum = 0;
 
         // Send our data
@@ -106,13 +109,16 @@ void sendTIPacket(unsigned char unit, unsigned char command, const unsigned char
         TIfifo_addByte(command);
         TIfifo_addByte(size >> 8);
         TIfifo_addByte(size & 0xFF);
+        debug("....");
         for(i = 0; i < size; ++i) {
             TIfifo_addByte(data[i]);
             checksum += data[i];
+            debug(".");
         }
         if(size > 0) {
             TIfifo_addByte(checksum & 0xFF);
             TIfifo_addByte(checksum >> 8);
+            debug("..");
         }
 
         // Get their ACK
@@ -124,10 +130,12 @@ void sendTIPacket(unsigned char unit, unsigned char command, const unsigned char
         TIfifo_getByte(); // Size, should be zero.
         TIfifo_getByte(); // But don't really care.
     } while(!ok);
+    debug("Sent&ACKd.\n");
 }
 
 void sendTIAck(unsigned char unit, PacketType ack)
 {
+    debug("Sending ack %02x.\n", ack);
     setTIlinkMode(send);
     TIfifo_addByte(unit);
     TIfifo_addByte(ack);
@@ -140,20 +148,27 @@ void sendTIPacketReply(unsigned char unit, unsigned char command)
 {
     static unsigned char receiving = 0;
 
+    debug("Replying (command byte was %02x).\n", command);
+
     // Decide what to do, based on state and command byte.
     if(receiving == 1 && (command == 0x92 || command == 0x06)) { // EOT, VAR
+        debug("EOT or VAR received. Committing variable.\n");
         variableCommit();
         receiving = 0;
         // This will fall through to the next if-block if command == 0x06.
     }
     if(command == 0x06) { // VAR
+        debug("Sending reply ");
         if(variableVerifyAndInit(unit)) {
             const unsigned char MEMpacket[] = {0x05, 0x00, 0x01, 0x00, 0x00};
+            debug("MEM\n");
             sendTIPacket(unit, 0x36, MEMpacket, sizeof(MEMpacket));
         }
         else {
+            debug("CTS\n");
             sendTIPacket(unit, 0x09, (void*)0, 0);
             receiving = 1;
         }
     }
+    debug("Done replying.\n");
 }
