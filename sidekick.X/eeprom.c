@@ -79,7 +79,7 @@ void eepromWriteArray(void* src, unsigned char size)
     eepromState.bytesInPage += size;
     eepromState.currentAddress += size;
     for(i = 0; i < size; ++i)
-        putI2C1(*(unsigned char*)src++);
+        putI2C1(((unsigned char*)src)[i]);
 }
 
 void eepromReset(void)
