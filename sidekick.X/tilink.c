@@ -190,7 +190,7 @@ void configTIlink()
 
     // Configure interrupt
     _CNIF = 0;                       //clear interrupt flag
-    _CNIP = 1;                       //choose a priority
+    _CNIP = 2;                       //choose a priority
     setTIlinkMode(receive);
 }
 

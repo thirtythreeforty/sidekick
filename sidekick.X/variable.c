@@ -106,7 +106,7 @@ void configVariable(void)
     PR2 = usToU16Ticks(250, getTimerPrescale(T2CONbits)) - 1;
     TMR2  = 0;
     _T2IF = 0;
-    _T2IP = 2;
+    _T2IP = 1;
     _T2IE = 0; // Let variableVerifyAndInit() enable the interrupt.
     T2CONbits.TON = 1;
 }
