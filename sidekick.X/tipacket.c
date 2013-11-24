@@ -123,12 +123,7 @@ void sendTIPacket(unsigned char unit, unsigned char command, const unsigned char
 
         // Get their ACK
         setTIlinkMode(receive);
-        TIfifo_getByte(); // Unit type, don't care
-        if(TIfifo_getByte() == ACK)
-            // Golden.
-            ok = 1;
-        TIfifo_getByte(); // Size, should be zero.
-        TIfifo_getByte(); // But don't really care.
+        ok = getTIAck();
     } while(!ok);
     debug("Sent&ACKd.\n");
 }
@@ -144,6 +139,15 @@ void sendTIAck(unsigned char unit, PacketType ack)
     setTIlinkMode(receive);
 }
 
+unsigned char getTIAck(void)
+{
+    unsigned char ok;
+    TIfifo_getByte(); // Unit type, don't care
+    ok = (TIfifo_getByte() == ACK);
+    TIfifo_getByte(); // Size, should be zero.
+    TIfifo_getByte(); // But don't really care.
+    return ok;
+}
 void sendTIPacketReply(unsigned char unit, unsigned char command)
 {
     static unsigned char receiving = 0;

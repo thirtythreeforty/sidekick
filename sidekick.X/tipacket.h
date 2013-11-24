@@ -18,11 +18,13 @@ typedef enum {
 } PacketType;
 
 void getTIPacket();
+void sendTIPacket(unsigned char unit, unsigned char command, const unsigned char *data, unsigned int size);
 void sendTIPacketReply(unsigned char unit, unsigned char command);
 void packetfifo_PushByte(unsigned char byte);
 unsigned char packetfifo_PopByte();
 unsigned int packetfifo_Size(void);
 void sendTIAck(unsigned char unit, PacketType ack);
+unsigned char getTIAck(void);
 
 #ifdef	__cplusplus
 }
