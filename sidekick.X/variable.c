@@ -72,20 +72,22 @@ void variableFlush(void)
 {
     // Force the interrupt to write the remaining data in the buffer.
     // Bit of a hack.
+    puts("Flushing variable...");
     variable_writeNow = 1;
     while(packetfifo_Size())
         ; //asm("pwrsav #1");
     variable_writeNow = 0;
     // Disable the async-write interrupt.
     _T2IE = 0;
+    puts("Flushed.\n");
 }
 
 void  _ISRFAST _T2Interrupt(void)
 {
     // Write if we can fill up a page, or if we've been instructed to write no matter what.
-    if(((packetfifo_Size() + eepromState.bytesInPage) >= EEPROM_PAGE_SIZE || variable_writeNow)
-       && (eepromStart(write, eepromState.currentAddress) != 1)) { // Possibly eeprom is already started.
-        while(eepromState.bytesInPage < EEPROM_PAGE_SIZE)
+    if(((packetfifo_Size() + eepromState.bytesInPage) >= EEPROM_PAGE_SIZE || variable_writeNow) &&
+       eepromStart(write, eepromState.currentAddress) != 1) {
+        while(eepromState.bytesInPage < EEPROM_PAGE_SIZE && packetfifo_Size())
             eepromWriteByte(packetfifo_PopByte());
         eepromStop();
     }
