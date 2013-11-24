@@ -45,8 +45,9 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
         ((unsigned char*)(&varHeader))[i] = packetfifo_PopByte();
     for(i = 0; i < varHeader.varNameSize; ++i)  // Read name, ugh
         varHeader.varName[i] = packetfifo_PopByte();
-    // The docs mention something about an extra byte for FLASH transfers.  I'm
-    // going to ignore it for now, because I don't know what it means.
+    // The docs mention something about an extra byte for FLASH transfers.
+    // Ignore it I guess.
+    packetfifo_PopByte();
 
     if(calcType != erHeader.calcType ||
        (varHeader.dataSize + sizeof(varHeader)) > (MAX_EEPROM_SIZE - erHeader.offsetToFree))
