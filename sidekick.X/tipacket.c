@@ -75,11 +75,13 @@ void getTIPacket(void)
         packetfifo_PushByte(in);
         computedChecksum += in;
     }
-    dataChecksum = TIfifo_getByte();        // Checksum, low byte
-    dataChecksum |= TIfifo_getByte() << 8;  // Checksum, high byte
+    if(packetSize) {
+        dataChecksum = TIfifo_getByte();        // Checksum, low byte
+        dataChecksum |= TIfifo_getByte() << 8;  // Checksum, high byte
+    }
 
     // Send ack
-    if(dataChecksum == computedChecksum) {
+    if(dataChecksum == computedChecksum || !packetSize) {
         puts("Packet good.\n");
         packetfifo_MarkGood();
         sendTIAck(unit, ACK);
