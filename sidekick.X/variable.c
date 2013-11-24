@@ -117,6 +117,13 @@ void variableCommit(void)
     eepromHeader header;
     variableFlush();
     // Commit the transaction to the first page
+    
+    // Update the offset from the last eeprom address.
+    unsigned long int newOffset = eepromState.currentAddress;
+    unsigned int remainder = newOffset % EEPROM_PAGE_SIZE;
+    if (remainder != 0)
+        newOffset += EEPROM_PAGE_SIZE - remainder;
+
     while(eepromStart(read, 0x000000))
         ;//asm("pwrsav #1");
     eepromReadArray(&header, sizeof(header));
