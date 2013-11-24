@@ -104,6 +104,8 @@ void sendTIPacket(unsigned char unit, unsigned char command, const unsigned char
         setTIlinkMode(send);
         TIfifo_addByte(unit);
         TIfifo_addByte(command);
+        TIfifo_addByte(size >> 8);
+        TIfifo_addByte(size & 0xFF);
         for(i = 0; i < size; ++i) {
             TIfifo_addByte(data[i]);
             checksum += data[i];
