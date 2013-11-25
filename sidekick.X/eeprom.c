@@ -91,6 +91,6 @@ void eepromReset(void)
     // a neutral state.
     startI2C1();
     putNoAckCheckI2C1(0xFF);
-    rstartI2C1();
+    startI2C1();
     stopI2C1();
 }
