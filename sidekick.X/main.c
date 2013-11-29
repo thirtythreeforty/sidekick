@@ -14,15 +14,15 @@
 int main() {
 #ifdef DEBUG
     configBasic(HELLO_MSG);
+#else
+    configHeartbeat();
 #endif
 
     configTIlink();
     configVariable();
 
-#ifdef DEBUG
-    // for debugging, clear on every poweron
-    variableClear();
-#endif
+    if(!_RB3)
+        variableClear();
 
     while(1)
         getTIPacket();
