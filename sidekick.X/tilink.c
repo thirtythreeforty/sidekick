@@ -178,6 +178,9 @@ void _ISRFAST _CNInterrupt(void) {
 
 void configTIlink()
 {
+    CONFIG_TIP_AS_INPUT();
+    CONFIG_RING_AS_INPUT();
+
     // Configure tip
     ENABLE_RB5_PULLUP();
     ENABLE_RB5_OPENDRAIN();
@@ -187,6 +190,7 @@ void configTIlink()
     ENABLE_RB6_PULLUP();
     ENABLE_RB6_OPENDRAIN();
     ENABLE_RING_INTERRUPT();
+    DELAY_US(1); // wait for pullups
 
     // Configure interrupt
     _CNIF = 0;                       //clear interrupt flag
