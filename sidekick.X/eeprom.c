@@ -31,7 +31,7 @@ unsigned char eepromStart(eepromOpType op, unsigned long int desiredAddress)
         putI2C1(eepromState.currentAddress & 0xFF);
         if(op == read) {
             // Must restart the device in read mode
-            rstartI2C1();
+            startI2C1();
             putI2C1(ctrlbyte | 1);
         }
         else {
