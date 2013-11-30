@@ -60,10 +60,7 @@ void getTIPacket(void)
     unsigned char unit, command;
     debug("packetfifo size is %i\n", packetfifo_Size());
     // Packet header
-    unit = TIfifo_getByte();
-    if(unit != 0x98)                        // Sending unit (0x98 : TI-89)
-        // Paranoia, only accept TI-89 packets for now
-        error_and_reset();
+    unit = TIfifo_getByte();                // Sending unit (0x98: TI-89, 0x89: TI-89 Titanium)
     command = TIfifo_getByte();
     debug("command = 0x%02x; ", command);
     packetSize = TIfifo_getByte();          // Data size, low byte

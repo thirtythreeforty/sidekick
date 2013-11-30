@@ -124,7 +124,7 @@ void _ISRFAST _INT1Interrupt(void)
             TIfifo_getByte();
             TIfifo_getByte();
 
-            sendTIAck(0x98, ACK);
+            sendTIAck(erHeader.calcType, ACK);
 
             debug("Sending variable...\n");
             // Ok, send the data, plus 4 extra bytes (?!).  Have to do this manually.
@@ -219,7 +219,7 @@ void variableCommit(void)
 void variableClear(void)
 {
     // Delete all data; just erase the header!
-    eepromHeader header = {.empty = 1, .calcType = 0x98,
+    eepromHeader header = {.empty = 1, .calcType = 0xFF,
                            .numVariables = 0, .offsetToFree = EEPROM_PAGE_SIZE};
     debug("Clearing variables...");
     while(eepromStart(write, 0x000000))
