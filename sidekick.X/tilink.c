@@ -67,7 +67,7 @@ unsigned char TIfifo_getBit(void)
 unsigned char TIfifo_getByte(void) {
     unsigned char byte;
     while(TIfifo.front == TIfifo.back)
-        ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
+        asm("pwrsav #1");
     byte = TIfifo.data[TIfifo.front];
     if(++TIfifo.front == sizeof(TIfifo.data))
         TIfifo.front = 0;
@@ -76,7 +76,7 @@ unsigned char TIfifo_getByte(void) {
 void TIfifo_addByte(unsigned char byte) {
     // TIlink must be in send mode or this function will not behave!
     while(TIfifo.front == (TIfifo.back + 1) % (sizeof(TIfifo.data) - 1))
-        ;//asm("pwrsav #1"); // This function should not be called from an interrupt.
+        ;
     TIfifo.data[TIfifo.back] = byte;
     if(++TIfifo.back == sizeof(TIfifo.data))
         TIfifo.back = 0;
@@ -90,8 +90,7 @@ void setTIlinkMode(TIlinkMode mode)
 {
     if(TIfifo.mode == send)
         while(_CNIE)
-            // Wait for all bytes to be sent
-            ;//asm("pwrsav #1");
+            ; // Wait for all bytes to be sent
     _CNIE = 0;
     TIfifo.mode = mode;
     TIfifo.front = TIfifo.back = 0;

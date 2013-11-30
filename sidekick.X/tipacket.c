@@ -26,7 +26,7 @@ volatile struct {
 void packetfifo_PushByte(unsigned char byte)
 {
     while(datafifo.front == (datafifo.back + 1) % (sizeof(datafifo.data) - 1))
-        ;//asm("pwrsav #1");
+        ;
     datafifo.data[datafifo.back] = byte;
     if(++datafifo.back == sizeof(datafifo.data))
         datafifo.back = 0;
@@ -35,7 +35,7 @@ unsigned char packetfifo_PopByte(void)
 {
     unsigned char byte;
     while(datafifo.goodBack == datafifo.front)
-        ;//asm("pwrsav #1");
+        ;
     byte = datafifo.data[datafifo.front];
     if(++datafifo.front == sizeof(datafifo.data))
         datafifo.front = 0;

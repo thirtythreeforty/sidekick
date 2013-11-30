@@ -36,7 +36,7 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
 
     // Read the variable header, make sure it matches what is already stored
     while(eepromStart(read, 0x000000))
-        ;//asm(" pwrsav #1");
+        ;
     eepromReadArray(&erHeader, sizeof(erHeader));
     eepromStop();
     debug("Reading of header complete.\n");
@@ -55,7 +55,7 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
     debug("erHeader.offsetToFree is %i.\n", erHeader.offsetToFree);
     // Good, now set up the EEPROM write process.
     while(eepromStart(write, erHeader.offsetToFree))
-        ;//asm("pwrsav #1");
+        ;
     eepromWriteArray(&varHeader, sizeof(varHeader));
     // Don't stop because we don't have a whole page.
     // Start the interrupt!
@@ -73,7 +73,7 @@ void variableFlush(void)
     debug("Flushing variable...");
     variable_writeNow = 1;
     while(packetfifo_Size())
-        ; //asm("pwrsav #1");
+        ;
     variable_writeNow = 0;
     // Disable the async-write interrupt.
     _T2IE = 0;
@@ -101,7 +101,7 @@ void _ISRFAST _INT1Interrupt(void)
 
     // Send everything, one at a time.
     while(eepromStart(read, 0x000000))
-        ;//asm(" pwrsav #1");
+        ;
     eepromReadArray(&erHeader, sizeof(erHeader));
     eepromStop();
 
@@ -112,7 +112,7 @@ void _ISRFAST _INT1Interrupt(void)
             unsigned int n, checksum = 0;
             TIvarHeader varHeader;
             while(eepromStart(read, i))
-                ;//asm(" pwrsav #1");
+                ;
             eepromReadArray(&varHeader, sizeof(varHeader));
             // constant header size + name's size + extra byte
             sendTIPacket(erHeader.calcType, 0x06, (unsigned char*)&varHeader, 6 + varHeader.varNameSize + 1);
@@ -202,7 +202,7 @@ void variableCommit(void)
         newOffset += EEPROM_PAGE_SIZE - remainder;
 
     while(eepromStart(read, 0x000000))
-        ;//asm("pwrsav #1");
+        ;
     eepromReadArray(&header, sizeof(header));
     eepromStop();
 
@@ -211,7 +211,7 @@ void variableCommit(void)
     header.offsetToFree = newOffset;
 
     while(eepromStart(write, 0x000000))
-        ;//asm("pwrsav #1");
+        ;
     eepromWriteArray(&header, sizeof(header));
     eepromStop();
     debug("Committed.\n");
@@ -223,7 +223,7 @@ void variableClear(void)
                            .numVariables = 0, .offsetToFree = EEPROM_PAGE_SIZE};
     debug("Clearing variables...");
     while(eepromStart(write, 0x000000))
-        ;//asm("pwrsav #1");
+        ;
     eepromWriteArray(&header, sizeof(header));
     eepromStop();
     debug("Cleared.\n");
