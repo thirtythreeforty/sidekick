@@ -19,9 +19,9 @@ enum {
 volatile struct {
     unsigned char data[0x3500];
     unsigned int front;
-    unsigned int goodFront;
     unsigned int back;
-} datafifo __attribute__((far)) = {.front = 0, .back = 0, .goodFront = 0};
+    unsigned int goodBack;
+} datafifo __attribute__((far)) = {.front = 0, .back = 0, .goodBack = 0};
 
 void packetfifo_PushByte(unsigned char byte)
 {
@@ -34,24 +34,24 @@ void packetfifo_PushByte(unsigned char byte)
 unsigned char packetfifo_PopByte(void)
 {
     unsigned char byte;
-    while(datafifo.goodFront == datafifo.back)
+    while(datafifo.goodBack == datafifo.front)
         ;//asm("pwrsav #1");
-    byte = datafifo.data[datafifo.goodFront];
-    if(++datafifo.goodFront == sizeof(datafifo.data))
-        datafifo.goodFront = 0;
+    byte = datafifo.data[datafifo.front];
+    if(++datafifo.front == sizeof(datafifo.data))
+        datafifo.front = 0;
     return byte;
 }
 inline unsigned int packetfifo_Size()
 {
-    return (datafifo.back - datafifo.goodFront) % sizeof(datafifo.data);
+    return (datafifo.goodBack - datafifo.front) % sizeof(datafifo.data);
 }
 inline void packetfifo_MarkGood(void)
 {
-    datafifo.goodFront = datafifo.front;
+    datafifo.goodBack = datafifo.back;
 }
 inline void packetfifo_MarkBad(void)
 {
-    datafifo.front = datafifo.goodFront;
+    datafifo.back = datafifo.goodBack;
 }
 
 void getTIPacket(void)
