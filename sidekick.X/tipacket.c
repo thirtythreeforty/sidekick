@@ -141,8 +141,9 @@ unsigned char getTIAck(void)
     unsigned char ok;
     TIfifo_getByte(); // Unit type, don't care
     ok = (TIfifo_getByte() == ACK);
-    TIfifo_getByte(); // Size, should be zero.
-    TIfifo_getByte(); // But don't really care.
+    if(TIfifo_getByte() || TIfifo_getByte())
+        // Size should be zero.
+        error_and_reset();
     return ok;
 }
 void sendTIPacketReply(unsigned char unit, unsigned char command)
