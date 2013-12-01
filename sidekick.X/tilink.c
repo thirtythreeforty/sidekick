@@ -16,7 +16,7 @@ typedef enum {
 } pin;
 
 volatile struct {
-    unsigned char data[0x200];
+    unsigned char data[0x700];
     unsigned int front;
     unsigned int back;
     unsigned char bits;
