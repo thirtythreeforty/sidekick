@@ -95,7 +95,6 @@ void  _ISRFAST _T2Interrupt(void)
 void _ISRFAST _INT1Interrupt(void)
 {
     eepromHeader erHeader;
-    unsigned long int i;
 
     debug("Sending variables to TI.\n");
 
@@ -108,7 +107,8 @@ void _ISRFAST _INT1Interrupt(void)
     debug("%i vars to send.\n", erHeader.numVariables);
 
     if(erHeader.numVariables) {
-        for(i = EEPROM_PAGE_SIZE; i < EEPROM_PAGE_SIZE * (erHeader.numVariables + 1);) {
+        unsigned long int i = EEPROM_PAGE_SIZE, n;
+        for(n = 0; n < erHeader.numVariables; ++n) {
             unsigned int n, checksum = 0;
             TIvarHeader varHeader;
             while(eepromStart(read, i))
