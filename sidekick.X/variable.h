@@ -21,7 +21,7 @@ void updateDisplay(void);
 #endif
 
 void variableClear(void);
-void variableCommit(void);
+void variableCommit(unsigned char unit);
 void variableFlush(void);
 unsigned char variableVerifyAndInit(unsigned char calcType);
 void configVariable(void);

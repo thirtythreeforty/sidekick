@@ -155,7 +155,7 @@ void sendTIPacketReply(unsigned char unit, unsigned char command)
     // Decide what to do, based on state and command byte.
     if(receiving == 1 && (command == 0x92 || command == 0x06)) { // EOT, VAR
         debug("EOT or VAR received. Committing variable.\n");
-        variableCommit();
+        variableCommit(unit);
         receiving = 0;
         // This will fall through to the next if-block if command == 0x06.
     }

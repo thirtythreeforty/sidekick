@@ -13,7 +13,6 @@
 #include "variable.h"
 
 typedef struct {
-    unsigned char empty;
     unsigned char calcType;
     unsigned int numVariables;
     unsigned long int offsetToFree;
@@ -46,7 +45,7 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
         // (The docs mention something about an extra byte for FLASH transfers.)
         varHeader.varName[i] = packetfifo_PopByte();
 
-    if(calcType != erHeader.calcType ||
+    if((calcType != erHeader.calcType && erHeader.calcType != 0xFF) ||
        (varHeader.dataSize + sizeof(varHeader)) > (MAX_EEPROM_SIZE - erHeader.offsetToFree))
         // In either of these cases, we'll say we don't have enough memory.
         // In the second case, that's actually true.
@@ -211,7 +210,7 @@ void configVariable(void)
     _INT1IE = 1;
 }
 
-void variableCommit(void)
+void variableCommit(unsigned char unit)
 {
     eepromHeader header;
     variableFlush();
@@ -231,20 +230,20 @@ void variableCommit(void)
     eepromStop();
 
     ++header.numVariables;
-    header.empty = 0;
     header.offsetToFree = newOffset;
+    header.calcType = unit;
 
     while(eepromStart(write, 0x000000))
         ;
     eepromWriteArray(&header, sizeof(header));
     eepromStop();
+    updateDisplay();
     debug("Committed.\n");
 }
 void variableClear(void)
 {
     // Delete all data; just erase the header!
-    eepromHeader header = {.empty = 1, .calcType = 0xFF,
-                           .numVariables = 0, .offsetToFree = EEPROM_PAGE_SIZE};
+    eepromHeader header = {.calcType = 0xFF, .numVariables = 0, .offsetToFree = EEPROM_PAGE_SIZE};
     debug("Clearing variables...");
     while(eepromStart(write, 0x000000))
         ;
