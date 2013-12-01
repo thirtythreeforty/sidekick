@@ -8,14 +8,29 @@
 #ifndef EEPROM_H
 #define	EEPROM_H
 
+#include "common.h"
+
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
 // 128 bytes per EEPROM page
+#ifdef USE_515
+#define EEPROM_PAGE_SIZE 64
+#endif
+#ifdef USE_1025
 #define EEPROM_PAGE_SIZE 128
-// 3 modules, 128K each; 128 * 3 * 1024 =
-#define MAX_EEPROM_SIZE 393216
+#endif
+
+#ifdef USE_LC
+#define EEPROM_SPEED 400
+#endif
+#ifdef USE_FC
+#define EEPROM_SPEED 1000
+#endif
+
+#define MAX_EEPROM_SIZE (EEPROM_PAGE_SIZE * NUM_EEPROMS * 1024)
 
 typedef volatile struct {
     unsigned char bytesInPage;          // Number of bytes written to the current page so far

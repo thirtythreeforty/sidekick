@@ -12,7 +12,17 @@
 extern "C" {
 #endif
 
-#define DEBUG
+// FEATURE #DEFINES
+
+// Define DEBUG to enable UART logging (degrades performance!).
+//#define DEBUG
+
+// Define the appropriate macros to match the EEPROM chip(s) used.
+#define NUM_EEPROMS 3
+//#define USE_515
+#define USE_1025
+//#define USE_LC
+#define USE_FC
 
 #ifdef DEBUG
 #include <stdio.h>

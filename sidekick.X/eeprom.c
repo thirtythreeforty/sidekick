@@ -84,7 +84,7 @@ void eepromWriteArray(void* src, unsigned char size)
 
 void eepromReset(void)
 {
-    configI2C1(1000); // TODO is this ok with 3 chips?
+    configI2C1(EEPROM_SPEED);
     
     // As recommended in Microchip's docs: the
     // correct way to ensure the memory is in
