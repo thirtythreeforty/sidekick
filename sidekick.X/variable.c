@@ -59,6 +59,10 @@ unsigned char variableVerifyAndInit(unsigned char calcType)
     // Don't stop because we don't have a whole page.
     // Start the interrupt!
     _T2IE = 1;
+
+    // Switch on the heartbeat LED during transaction
+    toggleHeartbeat();
+
     debug("Done.\n");
     return 0;
 }
@@ -131,6 +135,9 @@ void _ISRFAST _INT1Interrupt(void)
 
     if(erHeader.numVariables) {
         unsigned long int i = EEPROM_PAGE_SIZE, n;
+
+        toggleHeartbeat();
+
         for(n = 0; n < erHeader.numVariables; ++n) {
             unsigned int n, checksum = 0;
             TIvarHeader varHeader;
@@ -177,6 +184,8 @@ void _ISRFAST _INT1Interrupt(void)
         // Now, send an EOT
         debug("Sending EOT...\n");
         sendTIPacket(erHeader.calcType, 0x92, 0, 0);
+
+        toggleHeartbeat();
     }
 
     DELAY_MS(DEBOUNCE_DLY); // Switch bounce
@@ -237,7 +246,12 @@ void variableCommit(unsigned char unit)
         ;
     eepromWriteArray(&header, sizeof(header));
     eepromStop();
+
     updateDisplay();
+
+    // Switch off the heartbeat LED after transaction.
+    toggleHeartbeat();
+
     debug("Committed.\n");
 }
 void variableClear(void)
