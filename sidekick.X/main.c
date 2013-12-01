@@ -24,6 +24,8 @@ int main() {
     if(!_RB3)
         variableClear();
 
+    updateDisplay();
+
     while(1)
         getTIPacket();
 }

@@ -80,6 +80,30 @@ void variableFlush(void)
     debug("Flushed.\n");
 }
 
+#ifdef USE_DISPLAY
+void updateDisplay(void)
+{
+    eepromHeader erHeader;
+    char littleString[8] = {0,0,0,0,0,0,0,0};
+    while(eepromStart(read, 0x000000))
+        ;
+    eepromReadArray(&erHeader, sizeof(erHeader));
+    eepromStop();
+
+    Newhaven_Clear();
+    Newhaven_Print("Variables: ");
+    utoa(littleString, erHeader.numVariables, 10);
+    Newhaven_Print(littleString);
+    Newhaven_SetCursor(Newhaven_Line2);
+    if(erHeader.calcType == 0x98)
+        Newhaven_Print("Calc: TI-89");
+    else if(erHeader.calcType == 0x89)
+        Newhaven_Print("Calc: TI-89t");
+    else if(erHeader.calcType == 0x73)
+        Newhaven_Print("Calc: TI-83 Plus");
+}
+#endif
+
 void  _ISRFAST _T2Interrupt(void)
 {
     // Write if we can fill up a page, or if we've been instructed to write no matter what.

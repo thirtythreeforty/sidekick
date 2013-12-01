@@ -12,6 +12,14 @@
 extern "C" {
 #endif
 
+#ifdef USE_DISPLAY
+#include "newhaven.h"
+#include <stdlib.h>
+void updateDisplay(void);
+#else
+#define updateDisplay()
+#endif
+
 void variableClear(void);
 void variableCommit(void);
 void variableFlush(void);

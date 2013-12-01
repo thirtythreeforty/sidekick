@@ -17,6 +17,9 @@ extern "C" {
 // Define DEBUG to enable UART logging (degrades performance!).
 //#define DEBUG
 
+// Define USE_DISPLAY to enable feedback on Newhaven I2C display.
+#define USE_DISPLAY
+
 // Define the appropriate macros to match the EEPROM chip(s) used.
 #define NUM_EEPROMS 3
 //#define USE_515
