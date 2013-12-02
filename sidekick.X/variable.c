@@ -139,7 +139,7 @@ void _ISRFAST _INT1Interrupt(void)
         toggleHeartbeat();
 
         for(n = 0; n < erHeader.numVariables; ++n) {
-            unsigned int n, checksum = 0;
+            unsigned int t, checksum = 0;
             TIvarHeader varHeader;
             while(eepromStart(read, i))
                 ;
@@ -163,7 +163,7 @@ void _ISRFAST _INT1Interrupt(void)
             TIfifo_addByte(0x15);
             TIfifo_addByte((varHeader.dataSize + 4) & 0xFF);
             TIfifo_addByte((varHeader.dataSize + 4) >> 8);
-            for(n = 0; n < varHeader.dataSize + 4; ++n) {
+            for(t = 0; t < varHeader.dataSize + 4; ++t) {
                 unsigned char b = eepromReadByte();
                 checksum += b;
                 TIfifo_addByte(b);
@@ -174,8 +174,11 @@ void _ISRFAST _INT1Interrupt(void)
 
             eepromStop();
 
+            if(!getTIAck())
+                error_and_reset();
+
             // Update i
-            i += sizeof(varHeader) + varHeader.dataSize;
+            i += sizeof(varHeader) + varHeader.dataSize + 4;
             unsigned int remainder = i % EEPROM_PAGE_SIZE;
             if (remainder != 0)
                 i += EEPROM_PAGE_SIZE - remainder;
